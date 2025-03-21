@@ -42,7 +42,7 @@
                                     <a class="btn btn-danger btn-sm" href="#">
                                         <i class="fas fa-trash">
                                         </i>
-                                        Удалить
+                                        Удалить sad
                                     </a>
                                 </td>
                             </tr>
