@@ -22,9 +22,10 @@ Breadcrumbs::for('admin.page', function (BreadcrumbTrail $trail) {
     $trail->parent('admin');
     $trail->push('Страницы', route('admin.page.index'));
 });
-Breadcrumbs::for('admin.page.edit', function (BreadcrumbTrail $trail, Page $page) {
+Breadcrumbs::for('admin.page.edit', function (BreadcrumbTrail $trail, Page $firstPage) {
     $trail->parent('admin.page');
-    $trail->push(Page::breadcrumbPageTitle($page) , route('admin.page.index'));
+     
+    $trail->push(Page::breadcrumbPageTitle($firstPage) , route('admin.page.index'));
 });
 
 // Home > Blog

@@ -1,50 +1,72 @@
 @extends('layouts.main')
 @section('title', $page->title)
 @section('content')
-<div class="main__banner">
+<div class="main__banner container">
     <div class="main__banner--top"> 
         <div class="main__banner--left">
        
             <div>
-                <h1>КУПИТЬ ПРОКСИ</h1>
-                <h2>Аренда индивидуальных анонимных IP адресов</h2>
+                <h1>{{ __('Buy Proxy') }}</h1>
+                <div class="h1">{{ __('Rent of individual anonymous IP addresses') }}</div>
             </div>
             <div class="banner__info">
-                <div>
-                    <img src="" alt="">Прокси в работе<span>100 000</span>
+                <div class="banner__block">
+                    <i> 
+                    <img src="{{ asset('storage/images/header/i2.svg') }}" alt="">
+                    <img class="hover" src="{{ asset('storage/images/header/i2-hover.svg') }}" alt="">
+                    </i>
+                    <p> {{ __('clients chose us') }}</p> <span>100 000</span>
                 </div>
-                <div>
-                    <img src="" alt="">Прокси в работе<span>100 000</span>
+                <div class="banner__block">
+                    <i> 
+                    <img src="{{ asset('storage/images/header/i3.svg') }}" alt="">
+                    <img class="hover" src="{{ asset('storage/images/header/i3-hover.svg') }}" alt="">
+                    </i>
+                    <p>{{ __('repeat orders') }}</p> <span>100 000</span>
                 </div>
-                <a href="">Купить индивидуальные прокси от 60 рублей в месяц</a>
-                <div>
-                    <img src="" alt="">Прокси в работе<span>100 000</span>
+                <div class="banner__block">
+                    <i> 
+                    <img src="{{ asset('storage/images/header/i1.svg') }}" alt="">
+                    <img class="hover" src="{{ asset('storage/images/header/i1-hover.svg') }}" alt="">
+                    </i>
+                    <p>{{ __('Proxy at work') }}</p> <span>100 000</span>
+                </div>
+                <div class="banner__block">
+                    <i> 
+                    <img src="{{ asset('storage/images/header/i4.svg') }}" alt="">
+                    <img class="hover" src="{{ asset('storage/images/header/i4-hover.svg') }}" alt="">
+                    </i>
+                    <p>{{ __('orders processed') }}</p> <span>100 000</span>
+                </div>
+                <a href="" class="buy__btn">{{ __('Rent individual proxies from 5 days') }}</a>
+                <div class="garant__block">
+                    <div class="garant__block--img"> 
+                        <img src="{{ asset('storage/images/header/i5.svg') }}" alt="">
+                        <img class="hover" src="{{ asset('storage/images/header/i5-hover.svg') }}" alt="">
+                    </div>
+                    <p>{{ __('money back guarantee') }}</p> <span>{{ __('48 hours') }}</span>
                 </div>
             </div>
         </div>
         
-        <div class="main__banner--right">
-            <div>
-                <h1>Наши партнеры</h1>
-                <h2>уже заработали:</h2>
-            </div>
-            <div>
-                <div>
-                    <h1>
-                        <span>6.087.107
-                        </span>
-                        млн. руб.
-                    </h1>
+        <div class="help__24" onclick="jivo_api.open();">
+                <img src="{{ asset('storage/images/header/h24h.svg') }}" alt="">
+                <div class="help__24--content">
+                    <span>Круглосуточная поддержка 24/7</span>
+                    <span>каждый день</span>
                 </div>
-                <div class="svg__group">
-
-                </div>
-            </div>
+                 
         </div>
+
+        <div class="main__banner--right">
+             
+        </div>
+
+         
     </div>
 
     <div class="main__banner--bottom">
-        <p></p>
+        <p>{{ __('Suitable for popular services:') }}</p>
         <div class="social__swiper swiper">
 
         </div> 
@@ -52,8 +74,19 @@
 
 
 </div>
+<div class="advantages__wrapper container"> 
+    <div class="advantages__top top__title"> 
+        <img src="{{ asset('storage/images/preim-hover.svg') }}" alt="">
+        <h3>{{ __('Our advantages') }}</h3>
+    </div>
+    @include('includes.templates.advantages')
+</div>
 
-@include('includes.advantages')
+@include('includes.templates.calculator')
+
+@include('includes.templates.whereuse')
+@include('includes.templates.seoblock')
+@include('includes.templates.affilate')
 @endsection
 
 

@@ -22,8 +22,12 @@ class Page extends Model
         $pagedata = Page::where('page_langs.page_id', '=', $page->id)
         ->where('page_langs.lang','=', app()->getLocale())
         ->leftJoin('page_langs','pages.id', '=','page_langs.page_id')->get();
-          
+
+    
+        if(isset($pagedata[0]->title)){
         return $pagedata['0']->title;
+        }else
+        return $page->slug;
     }
 
     

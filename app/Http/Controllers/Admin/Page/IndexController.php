@@ -13,20 +13,20 @@ class IndexController extends Controller
          
 
         $pages = Page::query()
-        ->where('page_langs.lang', '=', app()->getLocale())
+        ->where('page_langs.lang', '=', 'ru')
         ->leftJoin('page_langs','pages.id', '=','page_langs.page_id')
          
         ->paginate(10);
 
 
         $pages_meta = Page::query()
-        ->where('page_metas.lang', '=', app()->getLocale())
+         ->where('page_metas.lang', '=', 'ru')
         ->leftJoin('page_metas','pages.id', '=','page_metas.page_id')
         ->paginate(10);
         
     
         
-
+       //return ['data' => 'adssa'];
        return view("admin.page.index", compact("pages", "pages_meta"));
     }
 }

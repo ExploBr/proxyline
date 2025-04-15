@@ -18,9 +18,9 @@
                      
                 </div>
                 <div id="app"> 
-                <page-index-component></page-index-component>
+              
                 </div>
-            <!--   <div class="card-body p-0">
+               <div class="card-body p-0">
                     <table class="table table-striped projects">
                         <thead>
                             <tr>
@@ -31,7 +31,7 @@
                                     Название
                                 </th>
                                 <th>
-                                    Контент
+                                    slug
                                 </th>
                                  
                                 <th style="width: 8%" class="text-center">
@@ -50,7 +50,7 @@
                                 <td>{{ $page->page_id }}</td>
                                 <td>{{ $page->title }}</td>
                                
-                                <td>{{ $page->content }}</td>
+                                <td>{!! $page->slug !!}</td>
                                 <td class="project-state">
                                     <span class="badge badge-success">{{ $page->publish == 1 ? "Опубликовано" : "Черновик" }}</span>
                                 </td>
@@ -74,7 +74,7 @@
                     <div class="card-footer">
                         {{ $pages->withQueryString()->onEachSide(1)->links('pagination::custompagination') }}
                     </div>
-                </div> -->
+                </div>  
             </div>
 
         </section>

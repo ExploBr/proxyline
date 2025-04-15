@@ -17,14 +17,20 @@ class LangsMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $locale = ltrim($request->route()->getPrefix(),"/");
+
+       
+         
         if ($locale) {
              
             App::setLocale($locale);
-        }
 
+             
+        }
+       // dd($locale);
         if($locale == env('APP_LOCALE')){
+            
             $uri = str_replace($locale,'',$request->path());
-         
+            //dd($uri);
            return redirect($uri, 301);
         }
 

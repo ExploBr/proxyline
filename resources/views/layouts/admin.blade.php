@@ -24,8 +24,11 @@
   <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
   summernote  
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}"> 
+ 
+  <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @vite(['resources/js/app-admin.js'])
 </head>
 <body class="hold-transition sidebar-mini   layout-navbar-fixed">
 <div class="wrapper ">
@@ -193,9 +196,9 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+ 
 <!-- jQuery UI 1.11.4 -->
-<script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+ 
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
@@ -239,6 +242,8 @@
   }
   })*/
 </script>
-
+<div class="succes">
+  Успешно!
+</div>
 </body>
 </html>

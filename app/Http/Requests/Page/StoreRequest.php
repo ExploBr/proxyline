@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
             "slug"=> "string|unique:pages,slug",
             "template"=> "string",
             "title"=> "string",
-            "content"=> "string",
+            "content"=> "",
             "publish"=>"",
             "metas"=>"",
         ];

@@ -19,5 +19,6 @@
             </div>
         </div>
     </div>
+    <!--<login-component>-->
 </div>
 @endsection

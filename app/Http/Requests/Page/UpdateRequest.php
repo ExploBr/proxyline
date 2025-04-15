@@ -22,10 +22,14 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-           "id"=>"int",
-            "slug"=> "string|unique:pages,slug",
+             
+            "slug"=> "string",
+            "template"=> "string",
             "title"=> "string",
-            "content"=> "string",
+            "content"=> "",
+            "publish"=>"",
+            "metas"=>"",
+            "lang" => "string"
         ];
     }
 }

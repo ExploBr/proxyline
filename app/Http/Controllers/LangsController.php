@@ -14,9 +14,9 @@ class LangsController
         }
 
         App::setLocale($lang);  
-
+          
         $uri = Langs::getUri($lang);
-
+        
         return redirect($uri);
     }
 }

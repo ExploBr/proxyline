@@ -2,7 +2,9 @@
 @section('content')
 
 
-   22
+   <div id="app">
+      <admin-main-component :user = '@json(session('token'))'></admin-main-component>
+   </div>
 
 
 @endsection

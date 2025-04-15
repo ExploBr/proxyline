@@ -27,20 +27,10 @@ export default {
             }
         },
         mounted(){
-            // this.getPages();
+            
         },
         methods: {
-          /*  say(){
-                alert(this.name);
-            },
-
-            getPages(){
-                axios.get('/blog')
-                .then(data => {
-                    this.persons = data.data;
-                })
-
-            }*/
+          
         },
         components:{
             CreatePageComponent,

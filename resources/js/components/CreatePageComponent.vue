@@ -1,5 +1,14 @@
 <template lang="">
-    <div style="background:grey">
+    <div>
+
+            <div class="form-group col-3">
+                        <label for="title">Язык</label>
+                        <select class="form-control" v-model="lang">
+                            <option value="all" >Для всех</option>
+                            <option value="ru" selected="selected">Русский</option>
+                             
+                        </select>
+             </div>
             <div class="form-group">
                 <label for="title">Имя</label>
                 <input class="form-control"
@@ -112,6 +121,8 @@
     </div>
 </template>
 <script>
+
+import api from '../api';
 import axios from 'axios';
 
 export default {
@@ -165,7 +176,7 @@ export default {
         },
        addPage(){
            
-           axios.post('/api/admin/page', {title: this.title, slug: this.slug, content: this.content, publish: this.publish, template: this.template, metas: this.metas})
+           api.post('/api/auth/admin/page', {title: this.title, slug: this.slug, content: this.content, publish: this.publish, template: this.template, metas: this.metas})
            .then(res=>{
             console.log(res);
            })

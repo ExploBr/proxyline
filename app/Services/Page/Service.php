@@ -38,7 +38,7 @@ class Service
     }
     public function update($page, $data){
         
-               dd($data);
+              // dd($data);
                 $page->update($data);
                 
             

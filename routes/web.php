@@ -2,6 +2,7 @@
  
 use Illuminate\Support\Facades\Route;
 use App\Helpers\Langs;
+use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
  
@@ -13,6 +14,7 @@ use App\Http\Middleware\AdminPanelMiddleware;
  
  
 Route::prefix('admin')->middleware(AdminPanelMiddleware::class)->namespace('App\Http\Controllers\Admin')->group(function () {
+   
     Route::get('', IndexAdminController::class)->name('admin.index');
      Route::group(['namespace'=>'Page'],function () {
         Route::get('/page', IndexController::class)->name('admin.page.index');
@@ -26,12 +28,22 @@ Route::prefix('admin')->middleware(AdminPanelMiddleware::class)->namespace('App\
 
        // Route::delete('/page/{page}', DestroyController::class)->name('admin.page.delete');
     });  
+
+    Route::group(['namespace'=>'MainContent'],function () {
+        Route::get('/main-content', MainContentController::class)->name('admin.maincontent.index');
+    });
+
+    Route::group(['namespace'=>'MainOption'],function () {
+        Route::get('/main-option', MainOptionController::class)->name('admin.mainoptioncontent.index');
+    });
 });
-
+ 
+ 
 Route::get('/admin/login', [HomeController::class,'index'])->name('login');
-Route::get('/logout', [LoginController::class,'logout']);
+Route::post('/admin/login', [AdminLoginController::class,'authenticate'])->name('admin.login');
+ 
+Route::get('/logout', [LoginController::class,'logout'])->name('logout');
 
-Auth::routes();
  
 
 

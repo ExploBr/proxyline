@@ -23,14 +23,14 @@ class Langs
     public static function getUri($lang){
        
         $url = url()->previous();
-        $url = str_replace(self::LOCALES,'', $url);
+        // $url = str_replace(self::LOCALES,'', $url);
 
         $url_parse = parse_url($url);
         
         $url_parse['path'] = explode('/', $url_parse['path']);
         $url_parse['path'] = implode('/', array_diff($url_parse['path'], self::LOCALES));
 
-        $url_parse['path'] = str_replace('//','/', $url_parse['path']);
+        //$url_parse['path'] = str_replace('//','/', $url_parse['path']);
 
         $uri = '';
         if($lang != env('APP_LOCALE')){

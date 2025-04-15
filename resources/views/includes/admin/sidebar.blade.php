@@ -34,7 +34,7 @@
            
         <li class="nav-item">
             <a href="{{ route('admin.page.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+              <i class="nav-icon fas fa-book"></i>
               <p>
                 Страницы
                 <span class="badge badge-info right"><!-- $posts->total() --></span>
@@ -65,6 +65,22 @@
             </ul>
           </li>
 
+
+          <li class="nav-item">
+            <a href="{{ route('admin.mainoptioncontent.index') }}" class="nav-link">
+                  <i class="fas fa-cog nav-icon"></i>
+                  <p>Основные настройки</p>
+             </a>
+            
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ route('admin.maincontent.index') }}" class="nav-link">
+                <i class="fab fa-hive nav-icon"></i>
+                  <p>Сквозные блоки</p>
+            </a>
+             
+          </li>
 
 
           <li class="nav-item">

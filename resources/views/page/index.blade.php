@@ -54,7 +54,7 @@
 
 </div>
 
-@include('includes.advantages')
+@include('includes.templates.advantages')
 @endsection
 
 
