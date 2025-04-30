@@ -28,38 +28,43 @@ class CalculatorDataCommand extends Command
     public function handle()
     {
        $payment = new ImportDataClient();
+
+       $response_availability = $payment->client->request('GET','/availability-data');
+       $this->data_availability = json_decode($response_availability->getBody()->getContents());
+
+       $response_countries = $payment->client->request('GET','/countries');
+       $this->all_countries  = json_decode($response_countries->getBody()->getContents());
+
+       $this->countries();
+
        $response_prices = $payment->client->request('GET','/proxy-prices/?v=3');
        $data_prices = json_decode($response_prices->getBody()->getContents());
         
        $response_limits = $payment->client->request('GET','/order-limits');
        $data_limits =json_decode($response_limits->getBody()->getContents());
 
-       $response_countries = $payment->client->request('GET','/countries');
-       $this->all_countries  = json_decode($response_countries->getBody()->getContents());
-
-       $response_availability = $payment->client->request('GET','/availability-data');
-       $this->data_availability = json_decode($response_availability->getBody()->getContents());
        
-       $this->countries();
+    
+       
+        
       $data = [
         'prices'    => $data_prices,
         'countries' => $this->data_countries,
         'limits' => $data_limits,
     ];
      
-    //dump( $data);
+    // dump( $data);
    
        dump( '______________________________');
       
-        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        DB::table('api_info')->upsert(
-            [
+         $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+           
+          DB::table('api_info')->updateOrInsert(
+          
+                ['name' => 'calculator_data'],
                 ['name' => 'calculator_data', 'content' => $data],
-                
-            ],
-            ['name'],
-            ['content']
-        );  
+              
+        );    
 
             
         
@@ -97,7 +102,7 @@ class CalculatorDataCommand extends Command
                             }
                         }
                     }
-
+                
                     if (app()->getLocale() === 'ru') {
                         usort($out, [$this, 'sort_countries_ru']);
                     } else {
@@ -112,8 +117,9 @@ class CalculatorDataCommand extends Command
                         }
 
                     $this->data_countries[$type] = $sortArray;
-                    
+                     
                 }
+                 
                
             }
          

@@ -34,6 +34,7 @@ class StoreRequest extends FormRequest
             'whereuse_imageshas' => "",
             "seoblock_content" => "",
             "affilateblock_content" => "",
+            "calculatorblock_content" => "",
              
         ];
     }

@@ -37,6 +37,12 @@ class MainContentController extends Controller
     
         $data_affilate = json_decode($data_affilate);
        
-        return view("admin.maincontent.index" , compact("data_advContent", "data_whereuse", "data_seo", "data_affilate"));
+        $data_calculator = MainContentOptions::where('name', '=', 'calculatorblock')
+        ->select(  'content','lang')
+        ->get();
+    
+        $data_calculator = json_decode($data_calculator);
+
+        return view("admin.maincontent.index" , compact("data_advContent", "data_whereuse", "data_seo", "data_affilate", "data_calculator"));
     }
 }

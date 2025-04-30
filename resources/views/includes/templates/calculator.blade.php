@@ -3,25 +3,25 @@
         [
                     'type'=> 'dedicated',
                     'ip_type' => 4,
-                    'text_after_title' => 'up to 3 people',
-                    'title' => 'IPv4 Shared Proxy',
+                    'text_after_title' => 'Issued to one person',
+                    'title' => 'Individual IPv4 Proxies',
                ],
 
                 [
                     'type'=>  'shared',
                     'ip_type' => 4,
-                    'text_after_title' => 'In one hand',
-                    'title' => 'Individual IPv4 Proxies',
+                    'text_after_title' => 'up to 3 people',
+                    'title' => 'IPv4 Shared Proxy',
                 ],
                 [
                     'type'=> 'dedicated',
                     'ip_type' => 6,
-                    'text_after_title' => 'In one hand',
+                    'text_after_title' => 'Issued to one person',
                     'title' => 'IPv6/32 Proxy',
                 ]
     ]
 @endphp
-<div id="calculator">
+<div id="calculator" class="calculator__main">
     <div  class="top__title">
         <img src="{{ asset('storage/images/calculator-top.svg') }}" alt="">
         <h3>{{ __('Proxy cost') }}</h3>
@@ -29,6 +29,8 @@
     <calculator-component 
     :data_calculator = '@json($data_calculator)'
     :calculator_info = '@json($calculator_info)'
+    :modal_info = '@json($modal_info)'
+    :crf = '@json(csrf_token())'
     >
     </calculator-component>
 </div>

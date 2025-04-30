@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\CouponCheck;
 use App\Http\Controllers\Admin\Page\TemplatesController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TranslationController;
@@ -44,5 +45,8 @@ Route::get('/user', function (Request $request) {
     });
  
     Route::post('/translate', [TranslationController::class, 'translate']);
+
+    Route::post('/coupon', CouponCheck::class);
+
 
      

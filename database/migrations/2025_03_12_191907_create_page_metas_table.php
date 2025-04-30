@@ -21,7 +21,7 @@ return new class extends Migration
             
              $table->timestamps();
             
-             $table->foreign('page_id','page_meta_page_fk')->references('id')->on('pages');
+             $table->foreign('page_id','page_meta_page_fk')->references('id')->on('pages')->onDelete('cascade');;
         });
     }
 

@@ -25,8 +25,8 @@ Route::prefix('admin')->middleware(AdminPanelMiddleware::class)->namespace('App\
 
          Route::get('/page/{page}/edit', EditController::class)->name('admin.page.edit');
          Route::patch('/page/{page}', UpdateController::class)->name('admin.page.update');
-
-       // Route::delete('/page/{page}', DestroyController::class)->name('admin.page.delete');
+        
+         Route::delete('/page/{page}', DestroyController::class)->name('admin.page.delete');
     });  
 
     Route::group(['namespace'=>'MainContent'],function () {
@@ -45,27 +45,23 @@ Route::post('/admin/login', [AdminLoginController::class,'authenticate'])->name(
 Route::get('/logout', [LoginController::class,'logout'])->name('logout');
 
  
-
-
-
-
-
+ 
 
 Route::get('/lang/{lang}', LangsController::class)->name('setlang');
 
- 
 Route::prefix(Langs::getLocales())->middleware('langs')->group( function () {
 
     Route::get('/', App\Http\Controllers\IndexController::class )->name('index');
-
     
-
     Route::group(['namespace'=>'App\Http\Controllers\Post'],function () {
         Route::get('/blog', IndexPostController::class )->name('post.index');
     });
 
     Route::group(['namespace'=>'App\Http\Controllers\Page'],function () {
+       
+        Route::post('/mainpay', ShowPayController::class)->name('page.show');
         Route::get('/{page}', ShowPageController::class)->name('page.show');
+       
     });
     
     

@@ -1,9 +1,7 @@
 <template lang="">
     <div>
-        <template v-for="(item, index) in data" :key="index">
-            <div class="" v-if="(this.lang == 'all' && item.lang == 'ru') || item.lang == this.lang"> 
-                <div class="row"> 
-                    <div class="form-group col-3">
+
+        <div class="form-group col-3">
                         <label for="title">Язык</label>
                         <select class="form-control" v-model="lang" @change="langChange">
                             <option value="all" >Для всех</option>
@@ -12,6 +10,11 @@
                             <option value="fr">Французкий</option>
                         </select>
                     </div>
+
+        <template v-for="(item, index) in maindata" :key="index">
+            <div class="" v-if="(this.lang == 'all' && item.lang == 'ru') || item.lang == this.lang"> 
+                <div class="row"> 
+                     
                     
                 </div>
                 <div class="row"> 
@@ -36,12 +39,22 @@
                             class="form-control"
                             v-model="item.template"
                             @change="templateChange($event)"
-                        >
-                            <option value="txtpage" selected="selected">txtpage</option>
-                            <option value="main">main</option>
-                            <option value="contact">contact</option>
-
+                            >
+                            <option value="txtpage" selected="selected">Текстовая страница</option>
+                            <option value="main">Главная</option>
+                            <option value="contact">Контакты</option>
+                            <option value="partner">Партнёрская программа</option>
                             <option value="ipv">ipv</option>
+                            <option value="optovikam">Оптовикам</option>
+                            <option value="ceny">Цены</option>
+                            <option value="pay">Оплата</option>
+                            <option value="checker">Прокси Чекер</option>
+                            <option value="speed">Скорость</option>
+                            <option value="ports">Порты</option>
+                            <option value="checkipv6">Проверка iPv6</option>
+                            <option value="freeproxy">Бесплатные прокси</option>
+                            <option value="myip">Мой IP</option>
+                            <option value="anonymous">Анонимность</option>
                         </select>
                     </div>
                 </div>
@@ -57,8 +70,8 @@
                     </div>
                 </div>
 
-                <div class="icheck-primary d-inline" >
-                        <input type="checkbox" id="publish"  v-model="getPublish[index]"   />
+                <div class="icheck-primary d-inline" v-if="index == 0">
+                        <input type="checkbox" id="publish"  v-model="getPublish" @change="publishChange"   />
                         <label for="publish"> Опубликовано </label>
                 </div>
 
@@ -72,12 +85,61 @@
                     <div class="from-group" v-if="item.template == 'main'">
                         <MainComponent :metas="metas" :newlang = "lang == 'all' ? 'ru' : lang"></MainComponent>
                     </div>
+
+
+                    <div class="from-group" v-if="item.template == 'ipv'">
+                        <IpvComponent :metas="metas" :newlang = "lang == 'all' ? 'ru' : lang"></IpvComponent>
+                    </div>
+
+
                     <div class="from-group" v-if="item.template == 'txtpage'">
-                        <div class="from-group"></div>
+                        <TxtComponent :metas="metas" :newlang = "lang == 'all' ? 'ru' : lang"></TxtComponent>
                     </div>
 
                     <div class="from-group" v-if="item.template == 'contact'">
-                        <ContactComponent :metas="metas"></ContactComponent>
+                        <ContactComponent :metas="metas" :newlang = "lang == 'all' ? 'ru' : lang"></ContactComponent>
+                    </div>
+
+                    <div class="from-group" v-if="item.template == 'partner'">
+                        <PartnersComponent :metas="metas" :newlang = "lang == 'all' ? 'ru' : lang"></PartnersComponent>
+                    </div>
+
+                    <div class="from-group" v-if="item.template == 'optovikam'">
+                        <OptComponent :metas="metas" :newlang = "lang == 'all' ? 'ru' : lang"></OptComponent>
+                    </div>
+
+                    <div class="from-group" v-if="item.template == 'ceny'">
+                        <CenyComponent :metas="metas" :newlang = "lang == 'all' ? 'ru' : lang"></CenyComponent>
+                    </div>
+                    <div class="from-group" v-if="item.template == 'checker'">
+                        <div class="from-group" >
+                        <label for="">Список</label>
+                            <textarea v-model="metas[0].spisok" class="w-100" rows="5">
+                                            {{ metas[0].spisok }}
+                            </textarea>
+                        </div>
+                    </div>
+
+                    <div class="from-group" v-if="item.template == 'speed'">
+                        <label>Заголовок</label>
+                        <textarea v-model="metas[0].content" class="w-100" rows="5" id="zagolovok">
+                                            {{ metas[0].content }}
+                            </textarea>
+                    </div>
+
+
+                    <div class="from-group" v-if="item.template == 'ports'">
+                        <label>Заголовок</label>
+                        <textarea v-model="metas[0].content" class="w-100" rows="5" id="zagolovok">
+                                            {{ metas[0].content }}
+                            </textarea>
+                    </div>
+
+                    <div class="from-group" v-if="item.template == 'freeproxy'">
+                        <label>Заголовок</label>
+                        <textarea v-model="metas[0].content" class="w-100" rows="5" id="zagolovok">
+                                            {{ metas[0].content }}
+                            </textarea>
                     </div>
                 </div>
 
@@ -103,7 +165,11 @@
 import api from "../api";
 import MainComponent from "./templates/MainComponent.vue";
 import ContactComponent from "./templates/ContactComponent.vue";
-
+import IpvComponent from "./templates/IpvComponent.vue";
+import PartnersComponent from "./templates/PartnersComponent.vue";
+import OptComponent from "./templates/OptComponent.vue";
+import CenyComponent from "./templates/CenyComponent.vue";
+import TxtComponent from "./templates/TxtComponent.vue";
 export default {
     name: "UpdatePageComponent",
 
@@ -116,34 +182,37 @@ export default {
             content: null,
             publish: null,
             template: null,
-            metas: this.datameta,
+            metas: this.datameta === null ? [] :   this.datameta,
+            maindata:this.data === null ? [] :   this.data,
         };
     },
     mounted() {
-         
+     
         // this.templateChange();
          this.langChange();
     },
 
     methods: {
         updatePage() {
-
-            this.data.forEach(element => {
+      
+            this.maindata.forEach(element => {
                 
                 if(element.lang == this.lang || (this.lang == 'all' && element.lang == 'ru')){
                     
-                let metadata = [];
+                let metadata = [];+
+                console.log(this.metas);
                 this.metas.forEach(element => {
+                     
                     if(element.lang == this.lang || (this.lang == 'all' && element.lang == 'ru'))
                     metadata.push(element);
                 });
+                
 
-                console.log(metadata);
                 api.patch(`/api/auth/admin/page/${element.slug}`, {
                     title: element.title,
                     slug: element.slug,
-                    content: this.content,
-                    publish: element.publish,
+                    content: element.content,
+                    publish: this.maindata[0].publish,
                     template: element.template,
                     metas: metadata,
                     lang : this.lang
@@ -160,65 +229,213 @@ export default {
                 
             });
              
-            /*   translate(){
-               axios.post('http://127.0.0.1:8000/api/translate', {"text": "Hello, how are you?", "language": "Spanish"}).then(res=>{
-               console.log(res);
-              })
-              .catch(function (error) {
-               console.log(error);
-              }); 
-           }, */
+             
 
             
         },
         templateChange(event) {
-            console.log(event.target.value);
 
-            this.metas = this.datameta;
+            let LangData = [];
+
+
+            // Adding languages ​​available in the array
+
+            this.metas.forEach((element,index) => {
+                LangData.push(element.lang)
+            })
+
+
+            // If there is no current language,
+            // add empty data to display in the current language
+
+            if(LangData.includes(this.lang) == false && this.lang != 'all'){
+
+                this.datameta.forEach(element => {
+                    if(element.lang == 'ru'){
+                     this.metas.push({name:element.name,content:"", lang: this.lang})
+                    }
+                });
+                 
+
+            }
+
+
+           this.metas.forEach(element => {
+                if(element.lang == this.lang){
+                    
+                    this.metas = this.datameta;
+                }
+            });
+
+
+            this.$nextTick(function () { 
+                 
+                 this.maindata.forEach((element,index) => {
+                 if(element.lang == this.lang){
+                     
+                      
+                     if ($("#summernote")) {
+                         $("#summernote").summernote({
+                             height: 300,
+                             
+                             callbacks: {
+                                 
+                                 onChange: function (contents) {
+                                     $vm.maindata[index].content = contents; // сохраняем новые данные
+                                     
+                                 },
+                                 onKeydown: function(e) {
+                                     e.stopPropagation();
+                                     }
+                                 
+                             },
+                         });
+                     }
+                  
+ 
+                     
+                 }
+             })
+  
+             var $vm = this;
+                 this.metas.forEach((element,index) => {
+                     if(element.lang == this.lang){
+ 
+                     if($(`textarea#${element.name}`)){
+                     $(`textarea#${element.name}`).summernote({
+                     height: 300,
+ 
+                     callbacks: {
+                         onChange: function(contents) {
+                             
+                             $vm.metas[index].content = contents; // сохраняем новые данные
+                         }
+                     }
+                     
+                     })
+                     
+                     }
+                  
+ 
+                 }
+ 
+             });
+         });
+              
+             
         },
         langChange(){
-   
-            console.log(this.data);
+
+            
+
+            let LangData = [];
+
+            this.maindata.forEach((element,index) => {
+                LangData.push(element.lang)
+            })
+
+            if(LangData.includes(this.lang) == false && this.lang != 'all'){
+                this.maindata.push({title: '', slug: null, content: null,publish: this.maindata[0].publish, template: this.data[0].template, lang: this.lang})
+                
+                this.datameta.forEach(element => {
+                    if(element.lang == 'ru'){
+                     this.metas.push({name:element.name,content:"", lang: this.lang})
+                    }
+                });
+            }
+
+             
+            
             var $vm = this;
-            this.data.forEach(element => {
+            this.maindata.forEach(element => {
                 if(element.lang == this.lang){
                     $vm.content = element.content
                 }
             });
-            if ($("#summernote")) {
-                $("#summernote").summernote({
-                    height: 300,
+           
+
+
+            // use nextTick for initialization summernote
+            // and compare languages ​​for the required update
+
+            this.$nextTick(function () { 
+                 
+                this.maindata.forEach((element,index) => {
+                if(element.lang == this.lang){
                     
-                    callbacks: {
-                        
-                        onChange: function (contents) {
-                            $vm.content = contents; // сохраняем новые данные
+                     
+                    if ($("#summernote")) {
+                        $("#summernote").summernote({
+                            height: 300,
                             
-                        },
-                        onKeydown: function(e) {
-                            e.stopPropagation();
-                            }
-                        
-                    },
-                });
-            }
+                            callbacks: {
+                                
+                                onChange: function (contents) {
+                                    $vm.maindata[index].content = contents; // сохраняем новые данные
+                                    
+                                },
+                                onKeydown: function(e) {
+                                    e.stopPropagation();
+                                    }
+                                
+                            },
+                        });
+                    }
+                    
+                }
+            })
+            
+               
+
+            var $vm = this;
+                this.metas.forEach((element,index) => {
+                    if(element.lang == this.lang){
+
+                    if($(`textarea#${element.name}`)){
+                    $(`textarea#${element.name}`).summernote({
+                    height: 300,
+
+                    callbacks: {
+                        onChange: function(contents) {
+                             
+                            $vm.metas[index].content = contents; // сохраняем новые данные
+                        }
+                    }
+                    
+                    })
+                    
+                    }
+                }
+
+            });
+        });
              
         },
          
-
+        publishChange(){
+            
+            this.maindata[0].publish = !this.maindata[0].publish;
+        }
          
     },
     components: {
         MainComponent,
         ContactComponent,
+        IpvComponent,
+        PartnersComponent,
+        OptComponent,
+        CenyComponent,
+        TxtComponent
     },
     computed: {
-        // corrections start
-        getPublish() {
-            return this.data.map(function(item) {
-                return item.publish == 1 ? true : false;
-            });
+        getPublish:{
+            get() {
+                return this.maindata[0].publish == 1 ? true : false;
+            },
+            
+            
         }
+       
     }
     
 };

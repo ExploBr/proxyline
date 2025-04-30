@@ -18,6 +18,7 @@
 
 <script>
  
+ 
 import Vue3Autocounter from 'vue3-autocounter';
 export default {
     name: "AffilateComponent",
@@ -26,20 +27,21 @@ export default {
             ifScroll: false
         }
     },
+    mounted() {
+        
+    },
     directives: {
     // Определяем локальную директиву `v-scroll`.
     scroll: {
          
       // Хук, срабатывающий при вставке в родительский DOM.
       mounted(element, binding) {
-        // По такому же принципу
-        // как в первом варианте ответа
+         
         // добавляем слушателя на событие.
         window.addEventListener('scroll', function(event) {
-          // Получаем значение,
-          // возвращаемое из локального метода `handleScroll`.
+          
           let result = binding.value(event, element)
-          // При прокрутке смотрите в консоль.
+      
           
         })
       }
@@ -47,8 +49,9 @@ export default {
   },
     methods: {
         handleScroll(event,element) {
-
-            if(window.scrollY > element.offsetTop - (window.screen.height) && this.ifScroll != true){
+           let MyoffsetTop = element.getBoundingClientRect().top + window.pageYOffset;
+           
+            if((window.scrollY > MyoffsetTop - (window.screen.height)) && this.ifScroll != true){
                 this.$refs.counter.start();
                 this.$refs.counter2.start();
                 this.ifScroll = true;

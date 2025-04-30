@@ -7,7 +7,7 @@ namespace App\Helpers;
 class Langs
 {
     const LOCALES =  ['ru', 'en', 'fr'];
-
+    const LOCALESNAME =  ['Россия', 'English', 'French'];
     public static function getLocales(){
         $locale = request()->segment(1,'');
         if($locale){

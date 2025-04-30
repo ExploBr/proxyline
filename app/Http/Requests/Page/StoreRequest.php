@@ -23,6 +23,7 @@ class StoreRequest extends FormRequest
     {
         return [
             "id"=>"int",
+             "lang"=>"",
             "slug"=> "string|unique:pages,slug",
             "template"=> "string",
             "title"=> "string",

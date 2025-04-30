@@ -1,29 +1,39 @@
 <template lang="">
     <div>
-        <div class="from-group" >
+        <template v-for="(item, index) in metas" :key="index">
+            <div class="from-group"   v-if="item.lang == newlang">
 
-            <label for="title">Подзаголовок</label>
-            <input class="form-control"
-            value="" v-model="metas.podzagolovok"
-            type="text"   id="podzagolovok">
+                <div class="from-group" >
+                        <label for="">{{ getTitle(item.name) }}</label>
+
+                        <input class="form-control"
+                        value="" v-model="item.content"
+                        type="text"   id="zagolovok">
+                            
+                    </div>
+ 
 
             </div>
-
-            <div class="from-group" >
-
-            <label for="title">Контакты</label>
-            <input class="form-control"
-            value="" v-model="metas.contact"
-            type="text"   id="contact">
-
-        </div>
+        </template>
+    
     </div>
 </template>
 <script>
 export default {
     name: "ContactComponent",
 
-    props:['metas']
+    props:['metas', 'newlang'],
+
+
+    methods: {
+        getTitle(name){
+            if (name == 'zagolovok'){
+                return 'Заголовок для отображения'
+            }
+
+            return name
+        }
+    },
 }
 </script>
 <style lang="">

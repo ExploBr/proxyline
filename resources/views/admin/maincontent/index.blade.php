@@ -11,6 +11,7 @@
     :data_whereuse = '@json($data_whereuse)'
     :data_seo = '@json($data_seo)'
     :data_affilate = '@json($data_affilate)'
+    :data_calculator = '@json($data_calculator)'
     >
     </main-content-component>
     

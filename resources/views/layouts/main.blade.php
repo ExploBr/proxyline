@@ -6,7 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
 
-    @vite(['resources/css/app.css', 'resources/sass/app.scss'])
+   
+
+    @if (isset($page) && isset($page->template) && ($page->template == 'checker' ||
+     $page->template == 'speed' || $page->template == 'ports' || 
+     $page->template == 'blacklist' || $page->template == 'checkipv6' ||  $page->template == 'freeproxy' ||
+      $page->template == 'myip' || $page->template == 'anonymous'))
+
+        @vite(['resources/sass/app.scss', 'resources/sass/response.scss','resources/sass/checkers.scss'])
+    @else
+        @vite(['resources/sass/app.scss', 'resources/sass/response.scss'])
+    @endif
 </head>
 
 <body>
@@ -18,16 +28,30 @@
                 <div id="logo" class="header__logo">
 
 
-                    <a class="logo rrl current_page_item">
-
+                @if (app()->getLocale() == 'ru')
+                    @if (isset($page) && $page->template == 'main')
+                    <a class="logo rrl current_page_item" href="" style="pointer-events: none;">
                         <img src="{{ asset('storage/images/logo.svg') }}" alt="proxyline.net — анонимные прокси">
-
-
-
-                        <!-- <img src="https://proxyline.net/wp-content/themes/proxyline/img/logo_ru-ny.svg"
-
-                                alt="proxyline.net — анонимные прокси">  -->
                     </a>
+                    @else
+                    <a class="logo rrl current_page_item" href="/">
+                        <img src="{{ asset('storage/images/logo.svg') }}" alt="proxyline.net — анонимные прокси">
+                    </a>
+                    @endif    
+                
+                @else
+                    @if (isset($page) && $page->template == 'main')
+                    <a class="logo rrl current_page_item" href="" style="pointer-events: none;">
+                            <img src="{{ asset('storage/images/logo_en.svg') }}" alt="proxyline.net — анонимные прокси">
+                    </a>
+                    @else
+                    <a class="logo rrl current_page_item" href="/{{ app()->getLocale() }}">
+                            <img src="{{ asset('storage/images/logo_en.svg') }}" alt="proxyline.net — анонимные прокси">
+                    </a>
+                        @endif
+                @endif
+
+                     
 
                     <div class="menu__toggle">
                         <span></span>
@@ -36,19 +60,9 @@
                 <div class="main__navigation--wrapper">
                     <div class="main__navigation">
                         <ul>
-                            <li class="parent"><a href="#">Прокси серверы</a>
-                                <ul class="navigation__child">
-                                    <div class="navigation__child--block">
-                                        <li>Страны</li>
-                                        <ul>
-                                            <li><a href="">Россия</a></li>
-                                            <li><a href="">Украина</a></li>
-                                        </ul>
-                                    </div>
-                                </ul>
-                            </li>
-                            <li><a href="#">Прокси серверы</a></li>
-                            <li><a href="#">Прокси серверы</a></li>
+                        @foreach ($menu_top as $item)
+                            <li><a href="{{ route('page.show',$item->slug) }}">{{ __($item->name) }}</a></li>
+                        @endforeach
                         </ul>
                     </div>
 
@@ -56,9 +70,9 @@
 
                     <div class="user-links">
 
-                        <a href="https://panel.proxyline.net/login/" rel="nofollow" class="nbtn" target="_blank">Авторизация</a>
+                        <a href="https://panel.proxyline.net/login/" rel="nofollow" class="nbtn" target="_blank">{{ __('Login') }}</a>
 
-                        <a href="https://panel.proxyline.net/register/" rel="nofollow" class="nbtn" target="_blank">Регистрация</a>
+                        <a href="https://panel.proxyline.net/register/" rel="nofollow" class="nbtn" target="_blank">{{ __('Registration') }}</a>
 
                     </div>
 
@@ -66,26 +80,26 @@
 
                     <ul class="language">
 
-                        @foreach (App\Helpers\Langs::LOCALES as $locale)
+                @foreach (App\Helpers\Langs::LOCALES as $key => $locale)
 
-                        @if ($locale == app()->getLocale())
-                        <li class="ru showed">
-                            <a href="#" class="current"><img src="" alt="">{{ $locale }}</a>
-                        </li>
-                        <div>
-                            <li class="ru active__lang"><a>{{ $locale }} </a></li>
+                @if ($locale == app()->getLocale())
+                <li class="ru showed">
+                    <a href="" class="current"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ $locale }}</span></a>
+                </li>
+                <div>
+                    <li class="ru active__lang"><a><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span> </a></li>
 
-                            @endif
+                    @endif
 
-                            @endforeach
-                            @foreach (App\Helpers\Langs::LOCALES as $locale)
-                            @if ($locale != app()->getLocale())
-                            <li class=""><a href="{{ route('setlang', $locale) }}">{{ $locale }}</a></li>
-                            @endif
-                            @endforeach
+                    @endforeach
+                    @foreach (App\Helpers\Langs::LOCALES as $key => $locale)
+                    @if ($locale != app()->getLocale())
+                    <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
+                    @endif
+                    @endforeach
 
-                        </div>
-                    </ul>
+                </div>
+            </ul>
 
 
                 </div>
@@ -98,58 +112,44 @@
 
 
                     <a href="/proxy-checker/">
-
-
-
-                        Прокси чекер</a>
+                       <img src="{{ asset('storage/images/header/proxychecker.svg') }}" width="20" height="20" alt="checker">
+                           
+                        {{ __('Proxy checker') }}</a>
 
                     <a href="/proverka-skorosti/">
+                    <img src="{{ asset('storage/images/header/speedtest.svg') }}" width="20" height="20" alt="checker">
 
-
-
-                        Скорость</a>
+                       {{ __('Speed') }}</a>
 
                     <a href="/proverit-port/">
+                        <img src="{{ asset('storage/images/header/portchecker.svg') }}" width="20" height="20" alt="checker">
 
-
-
-                        Порты</a>
+                        {{ __('Ports') }}</a>
 
                     <a href="/ip-moego-servera/">
+                        <img src="{{ asset('storage/images/header/myip.svg') }}" width="20" height="20" alt="checker">
 
-                        Мой IP</a>
+                        {{ __('My IP') }}</a>
 
                     <a href="/proverit-svoju-anonimnost/">
-
-
-
-                        Анонимность</a>
+                        <img src="{{ asset('storage/images/header/myip.svg') }}" width="20" height="20" alt="checker">
+                        {{ __('anonymity') }}</a>
 
                     <a href="/proverka-ip-na-chernye-spiski-i-spamnye-bazy/">
+                        <img src="{{ asset('storage/images/header/blacklist.svg') }}" width="20" height="20" alt="checker">
 
-
-
-                        Черный список</a>
+                        {{ __('blacklist') }}</a>
 
                     <a href="/proverka-ipv6-podkljuchenija-onlajn/">
-
-
-
+                        <img src="{{ asset('storage/images/header/ipv6.svg') }}" width="20" height="20" alt="checker">
                         IPV6</a>
 
                     <a href="/api-info/">
-
-
-
+                        <img src="{{ asset('storage/images/header/api.svg') }}" width="20" height="20" alt="checker">
                         API</a>
-
                     <a href="/besplatnye-onlajn-proksi-servera/">
-
-                        <svg class="menu-checker-icon">
-                            <use xlink:href="/wp-content/themes/proxyline/img/menu_sprite.svg#i9"></use>
-                        </svg>
-
-                        Бесплатные прокси</a>
+                        <img src="{{ asset('storage/images/header/freeproxy.svg') }}" width="20" height="20" alt="checker">
+                        {{ __('Free proxies') }}</a>
 
                 </div>
 
@@ -162,14 +162,35 @@
     @yield('content')
 
 </body>
-<footer class="container">
-    <div class="">
-
+<footer class="">
+    <div class="container">
+        <div class="footer__grid"> 
         <div class="footer__menu">
             <div class="footer__img--group"> 
-                <a href="" class="footer__logo">
-                    <img src="{{ asset('storage/images/logo.svg') }}" alt="">
-                </a>
+
+                @if (app()->getLocale() == 'ru')
+                    @if (isset($page) && $page->template == 'main')
+                    <a class="footer__logo" href="" style="pointer-events: none;">
+                        <img src="{{ asset('storage/images/logo.svg') }}" alt="proxyline.net — анонимные прокси">
+                    </a>
+                    @else
+                    <a class="footer__logo" href="/">
+                        <img src="{{ asset('storage/images/logo.svg') }}" alt="proxyline.net — анонимные прокси">
+                    </a>
+                    @endif    
+                
+                @else
+                    @if (isset($page) && $page->template == 'main')
+                    <a class="footer__logo" href="" style="pointer-events: none;">
+                            <img src="{{ asset('storage/images/logo_en.svg') }}" alt="proxyline.net — анонимные прокси">
+                    </a>
+                    @else
+                    <a class="footer__logo" href="/{{ app()->getLocale() }}">
+                            <img src="{{ asset('storage/images/logo_en.svg') }}" alt="proxyline.net — анонимные прокси">
+                    </a>
+                        @endif
+                @endif
+                
                 <img class="footer__pay-m" src="{{ asset('storage/images/pay-m.svg') }}" alt="">
             </div>
             <div class="footer__methods">
@@ -194,8 +215,9 @@
                 <h4>{{ __('Basics') }}</h4>
                 <div class="footer__links">
                     <ul>
-                        <li><a href="">Прокси России</a></li>
-                        <li><a href="">Прокси Украина</a></li>
+                        @foreach ($menu_main_bottom as $item)
+                            <li><a href="{{ route('page.show',$item->slug) }}">{{ __($item->name) }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -203,9 +225,9 @@
                 <h4>{{ __('Information') }}</h4>
                 <div class="footer__links">
                     <ul>
-                        <li><a href="">Прокси России</a></li>
-                        <li><a href="">Прокси Украина</a></li>
-                    
+                        @foreach ($menu_info as $item)
+                            <li><a href="{{ route('page.show',$item->slug) }}">{{ __($item->name) }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -213,96 +235,134 @@
                 <h4>{{__('Contacts')}}</h4>
                 <div class="footer__links">
                     <ul class="contacts">
-                        <li>
-                            <a href="mailto:admin@proxyline.net">
-                                <img src="" alt="">
-                                <span class="boldname">admin@proxyline.net</span>
-                                <span>Руководство проекта</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://t.me/proxyLine_bot">
-                                <img src="" alt="">
-                                <span class="boldname">@ProxyLine_bot</span>
-                                <span>Прокси бот</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://t.me/proxylinenet">
-                                <img src="" alt="">
-                                <span class="boldname">@ProxyLineNet</span>
-                                <span>Telegram канал</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://t.me/proxyLine_bot">
-                                <img src="" alt="">
-                                <span class="boldname">@ProxyLine_bot</span>
-                                <span>Техническая поддержка</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://t.me/proxyLine_bot">
-                                <img src="" alt="">
-                                <span class="boldname">Live Chat</span>
-                                <span>Онлайн чат поддержки<br>24/7 Без выходных</span>
-                            </a>
-                        </li>
+                        @foreach ($socials as $item)
+                            <li>
+                                <a href="{{ $item->link }}">
+                                    <img src="{{ asset('storage/'. $item->image->path ) }}" alt="">
+                                    <span class="footer__link--content"> 
+                                        <span class="boldname">{{ $item->name }}</span>
+                                        <span>{!! $item->podpis !!}</span>
+                                    </span>
+                                </a>
+                            </li>
+                        @endforeach
+          
                     </ul>
                 </div>
             </div>
+
+        </div>
         </div>
     </div>
 
     <div class="footer__bottom">
-        <p>© 2017 - {{date('Y')}} «ProxyLine» — аренда индивидуальных прокси</p>
-        <p>Техническая поддержка и онлайн чат работает 24/7 Без выходных</p>
+        <p>© 2017 - {{date('Y')}} «ProxyLine» — {{ __('rent individual proxies') }}</p>
+        <p>{{ __('Technical support and online chat works 24/7 7 days a week') }}</p>
     </div>
 </footer>
 
 <div class="mobile__menu">
-    <div class="logo__mobile">
-        <img src="{{ asset('storage/images/logo.svg') }}" alt="">
-    </div>
-    <div class="contact__mobile">
+    <div class="close__b close__menu"></div>
+    <div class="mobile__menu--content"> 
+        <div class="logo__mobile">
+            @if (app()->getLocale() == 'ru')    
+                <a href="/"> <img src="{{ asset('storage/images/proxyline_rus_black.png') }}" alt=""></a>
+            @else
+                <a href="/{{ app()->getLocale() }}"><img src="{{ asset('storage/images/proxyline_eng_black.png') }}" alt=""></a>
+            @endif
+        </div>
+        <div class="contact__mobile">
 
-        <ul class="language">
+        <ul class="mobile__contacts--ul">
+                        <li>
+                            <a href="mailto:admin@proxyline.net">
+                                <img src="{{ asset('storage/images/icons/mail.svg') }}" alt="">
+                                <span class="boldname">admin@proxyline.net</span>
+                                
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://t.me/proxyLine_bot">
+                                <img src="{{ asset('storage/images/icons/tg.svg') }}" alt="">
+                                <span class="boldname">@ProxyLine_bot</span>
+                                 
+                            </a>
+                        </li>
 
-            @foreach (App\Helpers\Langs::LOCALES as $locale)
+                        <li class="alltime__support">
+                                <img src="{{ asset('storage/images/icons/supporttime.svg') }}" alt="">
+                                <span class="aside-contact">
 
-            @if ($locale == app()->getLocale())
-            <li class="ru showed">
-                <a href="#" class="current"><img src="" alt="">{{ $locale }}</a>
-            </li>
-            <div>
-                <li class="ru active__lang"><a>{{ $locale }} </a></li>
+                                    <span>{{ __('24 hour support') }}</span> 
+                                    <span> {{ __('No days off') }}</span>
 
-                @endif
+                                </span>
+                        </li>
 
+            </ul>
+            <ul class="language">
+
+                @foreach (App\Helpers\Langs::LOCALES as $key => $locale)
+
+                @if ($locale == app()->getLocale())
+                <li class="ru showed">
+                    <a href="" class="current"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a>
+                </li>
+                <div>
+                    <li class="ru active__lang"><a><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span> </a></li>
+
+                    @endif
+
+                    @endforeach
+                    @foreach (App\Helpers\Langs::LOCALES as $key => $locale)
+                    @if ($locale != app()->getLocale())
+                    <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
+                    @endif
+                    @endforeach
+
+                </div>
+            </ul>
+
+        </div>
+
+        <div class="mobile__menu--wrapper">
+            <ul>
+                @foreach ($menu_top as $item)
+                    <li><a href="{{ route('page.show',$item->slug) }}">{{ __($item->name) }}</a></li>
                 @endforeach
-                @foreach (App\Helpers\Langs::LOCALES as $locale)
-                @if ($locale != app()->getLocale())
-                <li class=""><a href="{{ route('setlang', $locale) }}">{{ $locale }}</a></li>
-                @endif
-                @endforeach
+                 
+            </ul>
+        </div>
 
-            </div>
-        </ul>
+        <div class="mobile__auth--btn">
 
+            <a href="https://panel.proxyline.net/login/">{{ __('Login') }} / {{ __('Registration') }}</a>
+
+        </div>
     </div>
 
-    <div class="mobile__menu--wrapper">
-        <ul>
-            <li></li>
-        </ul>
-    </div>
-
-    <div class="mobile__auth--btn">
-
-        <a href="https://panel.proxyline.net/login/">Авторизация / Регистрация</a>
-
+    <div class="mobile__menu--overlay">
+        
     </div>
 </div>
-@vite(['resources/js/app.js'])
+ 
 
+
+@if (isset($page) && isset($page->template) && $page->template == 'ceny')
+    @vite(['resources/js/app.js','resources/js/ceny.js']) 
+ 
+@elseif (isset($page) && isset($page->template) && $page->template == 'pay')
+    @vite(['resources/js/app.js','resources/js/pay.js']) 
+ 
+@elseif (isset($page) && isset($page->template) && ($page->template == 'checker' ||
+    $page->template == 'speed' || $page->template == 'ports' ||
+    $page->template == 'blacklist' || $page->template == 'checkipv6' ||
+     $page->template == 'myip' || $page->template == 'anonymous' ))
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" ref="jquery"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    @vite(['resources/js/app.js','resources/js/checkers.js'])
+ 
+@else
+    @vite(['resources/js/app.js'])
+@endif
 </html>

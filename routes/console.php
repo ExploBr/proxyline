@@ -11,3 +11,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 //Schedule::command('app:paymentMethodsCommand')->everyFiveMinutes();
+//Schedule::command('app:CalculatorDataCommand')->everyFiveMinutes();
+//Schedule::command('app:CourseCommand')->everyFiveMinutes();

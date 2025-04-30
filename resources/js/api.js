@@ -30,6 +30,9 @@ error => {
     if(error.response.status === 500){
         alert('Ошибка ' + error.response.data.message + ' in ' + error.response.data.file);
    }
+   if(error.response.status === 422){
+    alert('Ошибка ' + error.response.data.message );
+}
     if(error.response.status === 401){
          location.href = '/logout'
     }

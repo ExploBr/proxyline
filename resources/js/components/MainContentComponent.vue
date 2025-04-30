@@ -27,6 +27,11 @@
                 <li class="nav-item">
                     <a class="nav-link" id="affilate-tab-tab" data-toggle="pill" href="#affilate-tab" role="tab" aria-selected="false" aria-controls="affilate-tab">Партнеры блок</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="calculator-tab-tab" data-toggle="pill" href="#calculator-tab" role="tab" aria-selected="false" aria-controls="calculator-tab">Калькулятор блок</a>
+                </li>
+                
             </ul>
             <div class="tab-content" id="content-tabContent">  
                 <div class="tab-pane fade show active" id="adv-tab" role="tabpanel" aria-labelledby="adv-tab">
@@ -95,6 +100,26 @@
                     </template>
 
                 </div>
+
+
+                <div class="tab-pane fade" id="calculator-tab" role="tabpanel" aria-labelledby="calculator-tab">
+
+                <template v-for="(item, index) in calculatordata" :key="index">
+                    <div v-if="(this.lang == 'all' && item.lang == 'ru') || item.lang == this.lang"> 
+                        <label class="mt-25">Контент</label>
+                        
+                        <template v-for="(content, index) in item.content"> 
+                            <div class="mt-25"> 
+                            Попап-{{index+1}}
+                            <textarea class="w-100" v-model="content.popup" rows="14"  >
+                                            {{ content.popup }}
+                            </textarea>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                </div>
                  
 
             </div>
@@ -123,7 +148,7 @@ export default {
     name: 'MainContentComponent',
 
     props: [
-        'data_adv', 'data_whereuse', 'data_seo', 'data_affilate'
+        'data_adv', 'data_whereuse', 'data_seo', 'data_affilate', 'data_calculator'
     ],
     data() {
         return {
@@ -137,12 +162,14 @@ export default {
             seodata: this.data_seo === null ? [] :   this.data_seo,
 
             affilatedata: this.data_affilate === null || this.data_affilate === undefined ? [] :   this.data_affilate,
+
+            calculatordata: this.data_calculator === null || this.data_calculator === undefined ? [] :   this.data_calculator,
         }
     },
     
     mounted(){
  
-         console.log(this.data_affilate);
+        // We receive data, some comes in different forms from, here json.parse
         this.advantages.forEach((element,index) => {   
                  this.advantages[index].content = JSON.parse(this.advantages[index].content)
         })
@@ -156,7 +183,12 @@ export default {
         this.affilatedata.forEach((element,index) => {   
                  this.affilatedata[index].content = (this.affilatedata[index].content)
         })
+
+        this.calculatordata.forEach((element,index) => {   
+                 this.calculatordata[index].content = JSON.parse(this.calculatordata[index].content)
+        })
         this.langChange();
+        
     },
 
     methods: {
@@ -168,6 +200,10 @@ export default {
             let LangWhere = [];
             let LangSeo = [];
             let LangAffilate = [];
+            let LangCalculator = [];
+            
+            
+            // Adding languages ​​available in the array
 
             this.advantages.forEach((element,index) => {
                 LangAdv.push(element.lang)
@@ -185,6 +221,14 @@ export default {
                 LangAffilate.push(element.lang)
             })
 
+            this.calculatordata.forEach((element,index) => {
+                LangCalculator.push(element.lang)
+            })
+
+
+            // If there is no current language,
+            // add empty data to display in the current language
+
             if(LangAdv.includes(this.lang) == false && this.lang != 'all'){
                 this.advantages.push({content: [], lang: this.lang})
             }
@@ -201,6 +245,9 @@ export default {
                 this.affilatedata.push({content: '', lang: this.lang})
             }
             
+            if(LangCalculator.includes(this.lang) == false && this.lang != 'all'){
+                this.calculatordata.push({content: [{popup:null}, {popup:null}, {popup:null}], lang: this.lang})
+            }
             // end "add lang"
           
 
@@ -256,7 +303,7 @@ export default {
                 $('#adv_images').sortable({
                     stop: function () { 
                          
-                        var queue = thisAdvImage .files; 
+                        var queue = thisAdvImage.files; 
                          
                         var newQueue = []; 
                         $('.adv_images .dz-preview .dz-filename [data-dz-name]').each(function (count, el) { 
@@ -267,7 +314,7 @@ export default {
                                 } 
                             }); 
                         }); 
-                        thisAdvImage .files = newQueue; 
+                        thisAdvImage.files = newQueue; 
                        
                     }
                     
@@ -315,7 +362,7 @@ export default {
                 
                 if(this.adv_images.length>0 ){
                     this.adv_images.on('removedfile',(file)=>{                 
-                    thisAdvImage .files = thisAdvImage .files.filter((el) => el.name !== file.name);     
+                    thisAdvImage.files = thisAdvImage.files.filter((el) => el.name !== file.name);     
                     })
                 }
 
@@ -332,7 +379,9 @@ export default {
 
 
                 // TEXTEDITOR 
-                
+
+                            // use nextTick for initialization summernote
+                            // and compare languages ​​for the required update
                             this.$nextTick(function () {  
 
                                 var $vm = this;
@@ -440,7 +489,9 @@ export default {
 
             // ADVANTAGES DATA
             if(this.adv_images.files){
-                let adv_sort, adv_name;   
+                let adv_sort, adv_name;  
+                // Add data to sorting, for the total number of all images  
+                // and saving existing images 
                 this.adv_images.files.forEach((element,index) => {
                     if(element instanceof File != true){
                         adv_sort = index
@@ -482,7 +533,8 @@ export default {
                 
             let WhereFiles;
 
-
+        
+             //  saving existing images
             this.whereuse_image.files.forEach((element,index) => {
                     if(element instanceof File != true){
                        
@@ -537,6 +589,21 @@ export default {
                 });
 
              // END AFFILATE
+
+
+             // START CALCULATOR
+
+             this.calculatordata.forEach((element,index) => {
+                    if(element.lang == this.lang || (this.lang == 'all' && element.lang == 'ru')){
+                        element.content.forEach(content => {
+                            data.append('calculatorblock_content[]', content.popup)
+                        });
+                        
+                       
+                    }
+                });
+                
+             // END CALCULATOR
             
             api.post('/api/auth/admin/main-content', data)
         },

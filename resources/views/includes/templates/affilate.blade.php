@@ -1,7 +1,7 @@
 @if (isset($affilateblock))
 <div class="affilate__block container">
     <div class="top__title affilate__top">
-            <img src="{{ asset('storage/images/affilate-top.svg') }}" alt="">
+            <img src="{{ asset('storage/images/affilate-top.svg') }}" alt="affilate top">
             <h3>{{ __('Affiliate program') }}</h3>
     </div>
     <div class="affilate__content"> 

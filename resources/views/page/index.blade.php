@@ -1,60 +1,46 @@
 @extends('layouts.main')
-
+@section('title', $page->title)
 @section('content')
+ 
+@if($page->template == 'ipv')
+ 
 <div class="main__banner">
-    <div class="main__banner--top"> 
-        <div class="main__banner--left">
-        {{ var_dump($page->id) }}
-            <div>
-                 
-                <h1>КУПИТЬ ПРОКСИ</h1>
-                <h2>Аренда индивидуальных анонимных IP адресов</h2>
-            </div>
-            <div class="banner__info">
-                <div>
-                    <img src="" alt="">Прокси в работе<span>100 000</span>
-                </div>
-                <div>
-                    <img src="" alt="">Прокси в работе<span>100 000</span>
-                </div>
-                <a href="">Купить индивидуальные прокси от 60 рублей в месяц</a>
-                <div>
-                    <img src="" alt="">Прокси в работе<span>100 000</span>
-                </div>
-            </div>
-        </div>
+    <div class="inner__banner container"> 
+        <div class="breadcrumbs container white__bread">
         
-        <div class="main__banner--right">
-            <div>
-                <h1>Наши партнеры</h1>
-                <h2>уже заработали:</h2>
-            </div>
-            <div>
-                <div>
-                    <h1>
-                        <span>6.087.107
-                        </span>
-                        млн. руб.
-                    </h1>
-                </div>
-                <div class="svg__group">
-
-                </div>
-            </div>
+        {{ Breadcrumbs::view('layouts.breadcrumb.pagecrumb', 'page.show' , $page) }}
+            
         </div>
+        <div class="inner__title">
+            @foreach ($page_metas as $item)
+                @if ($item->name == 'ipv_content_top')
+                <div class="inner__title--img">{!! $item->content !!}</div>
+                @endif
+            @endforeach
+            <h1>{{ $page->title }}</h1>
+        </div>
+         
+          <div class="inner__banner--content">{!! $page->content !!} </div> 
     </div>
-
-    <div class="main__banner--bottom">
-        <p></p>
-        <div class="social__swiper swiper">
-
-        </div> 
-    </div>
-
-
 </div>
+@else
+<div class="breadcrumbs container">
+    
+{{ Breadcrumbs::view('layouts.breadcrumb.pagecrumb', 'page.show' , $page) }}
+    
+</div>
+@endif
 
-@include('includes.templates.advantages')
+
+<div class="inner__content">
+
+    @if (View::exists('page.templates.'.$page->template.''))
+    @include('page.templates.'.$page->template.'')
+    @else
+
+    @endif
+</div>
+ 
 @endsection
 
 

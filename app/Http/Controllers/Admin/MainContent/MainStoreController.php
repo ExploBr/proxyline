@@ -38,6 +38,7 @@ class MainStoreController extends Controller
 
         $seo_content = isset($data['seoblock_content']) ? $data["seoblock_content"] : null;
         $affilate_content = isset($data['affilateblock_content']) ? $data["affilateblock_content"] : null;
+        $calculator_content = isset($data['calculatorblock_content']) ? $data["calculatorblock_content"] : null;
         if ($data['lang'] != 'all') {
 
             // ADVANTAGES SAVE
@@ -165,6 +166,24 @@ class MainStoreController extends Controller
             }
 
             // END PARTNER
+
+            // CALCULATOR START
+
+            if($calculator_content!= null){
+              
+                foreach ($calculator_content as $key => $value) {
+                    $data_calculator[] = ['popup' => $value];
+                }
+                MainContentOptions::updateOrCreate(
+                    ['name' => 'calculatorblock', 'lang' => $data['lang']],
+                    [
+                        'content' => json_encode($data_calculator, JSON_UNESCAPED_UNICODE),
+                        'lang' => $data['lang']
+                    ]
+                );
+            }
+
+            // END CALCULATOR
 
         } else {
             foreach ($languages as $language) {
@@ -313,6 +332,24 @@ class MainStoreController extends Controller
 
                 // END PARTNER
 
+
+                 // CALCULATOR START
+
+            if($calculator_content!= null){
+              
+                foreach ($calculator_content as $key => $value) {
+                    $data_calculator[] = ['popup' => $value];
+                }
+                MainContentOptions::updateOrCreate(
+                    ['name' => 'calculatorblock', 'lang' => $language],
+                    [
+                        'content' => json_encode($data_calculator, JSON_UNESCAPED_UNICODE),
+                        'lang' => $language
+                    ]
+                );
+            }
+
+            // END CALCULATOR
             }
         }
 

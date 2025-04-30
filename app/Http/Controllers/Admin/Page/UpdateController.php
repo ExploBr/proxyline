@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Page;
 
+use App\Helpers\DomCreate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -44,33 +45,8 @@ class UpdateController extends BaseController
 
 
             if(isset($data['title'])){
-                $content = '<html>'. $data['content'] .'</html>';
-                $dom = new \DOMDocument('1.0', 'UTF-8');
-                $dom->loadHtml("\xEF\xBB\xBF" .$content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-                $imageFile = $dom->getElementsByTagName('img');
-    
-                foreach($imageFile as $item => $image){
-                    $imageSrc = $image->getAttribute('src');
-                    $imageName = $image->getAttribute('data-filename');
-                    
-                    if(substr($imageSrc, 0, 4) == 'data'){
-    
-                        list($type, $imageSrc) = explode(';', $imageSrc);
-    
-                        list(, $imageSrc)   = explode(',', $imageSrc);
-        
-                        $imgeData = base64_decode( $imageSrc);
-    
-                       Storage::disk('public')->put('images/'.$imageName, $imgeData);
-    
-                       $filePath = asset('/storage/images/'.$imageName);
-                     
-                        $image->removeAttribute('src');
-                        $image->setAttribute('src', url($filePath));
-                    }
-                     
-                }
-                $content = html_entity_decode(str_replace(array('<html>','</html>') , '' , $dom->saveHTML()));
+
+                $content = DomCreate::createDom($data['content']);
      
                 PageLangs::
                       updateOrCreate(['page_id' => $page->id, 'lang' => $data['lang']],
@@ -80,7 +56,9 @@ class UpdateController extends BaseController
 
             if(isset($data['metas'])){
                 foreach($data['metas'] as $key => $elem){
-                    
+                     if($elem['name'] == 'ipv_content_top' || $elem['name'] == 'ipv_content_bottom' || $elem['name'] == 'steps'){
+                        $elem['content'] = DomCreate::createDom($elem['content']);
+                    }    
                     PageMeta::
                     updateOrCreate(['page_id' =>  $page->id, 'name' => $elem['name'], 'lang' => $data['lang'] ],['name' => $elem['name'], 'content' => $elem['content'], 'lang' => $data['lang']]  ); 
                      
@@ -110,33 +88,9 @@ class UpdateController extends BaseController
                 // for langs data
         
                 if(isset($data['title'])){
-                    $content = '<html>'. $data['content'] .'</html>';
-                    $dom = new \DOMDocument('1.0', 'UTF-8');
-                    $dom->loadHtml("\xEF\xBB\xBF" .$content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-                    $imageFile = $dom->getElementsByTagName('img');
-        
-                    foreach($imageFile as $item => $image){
-                        $imageSrc = $image->getAttribute('src');
-                        $imageName = $image->getAttribute('data-filename');
-                        
-                        if(substr($imageSrc, 0, 4) == 'data'){
-        
-                            list($type, $imageSrc) = explode(';', $imageSrc);
-        
-                            list(, $imageSrc)   = explode(',', $imageSrc);
-            
-                            $imgeData = base64_decode( $imageSrc);
-        
-                           Storage::disk('public')->put('images/'.$imageName, $imgeData);
-        
-                           $filePath = asset('/storage/images/'.$imageName);
-                         
-                            $image->removeAttribute('src');
-                            $image->setAttribute('src', url($filePath));
-                        }
-                         
-                    }
-                    $content = html_entity_decode(str_replace(array('<html>','</html>') , '' , $dom->saveHTML()));
+                     
+                    $content = DomCreate::createDom($data['content']);
+
          
                       if($language != 'ru'){
                          // $result1 = $this->openAIService->translate($content, $translatelang);
@@ -159,11 +113,16 @@ class UpdateController extends BaseController
                   if(isset($data['metas'])){
                     foreach($data['metas'] as $key => $elem){
 
+                        if($elem['name'] == 'ipv_content_top' || $elem['name'] == 'ipv_content_bottom' || $elem['name'] == 'steps'){
+                            $elem['content'] = DomCreate::createDom($elem['content']);
+                        } 
+                        
                         if($language != 'ru'){
                         //   $result = $this->openAIService->translate($elem['content'], $translatelang);
                         //   $newContent =   $result[0]['content'];
                         }
 
+                        
                         PageMeta::
                         updateOrCreate(['page_id' =>  $page->id, 'name' => $elem['name'], 'lang' => $language ],['name' => $elem['name'], 'content' => $elem['content'], 'lang' => $language]  ); 
                           

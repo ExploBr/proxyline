@@ -23,9 +23,17 @@ class Page extends Model
         ->where('page_langs.lang','=', app()->getLocale())
         ->leftJoin('page_langs','pages.id', '=','page_langs.page_id')->get();
 
-    
         if(isset($pagedata[0]->title)){
         return $pagedata['0']->title;
+        }else
+        return $page->slug;
+    }
+
+
+    static public function breadcrumbPageShowTitle($page){
+      
+        if(isset($page->title)){
+        return $page->title;
         }else
         return $page->slug;
     }

@@ -11,8 +11,8 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 // Home
-Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
-    $trail->push('Home', route('home'));
+Breadcrumbs::for('index', function (BreadcrumbTrail $trail) {
+    $trail->push('Proxyline', route('index'));
 });
 
 Breadcrumbs::for('admin', function (BreadcrumbTrail $trail) {
@@ -22,11 +22,19 @@ Breadcrumbs::for('admin.page', function (BreadcrumbTrail $trail) {
     $trail->parent('admin');
     $trail->push('Страницы', route('admin.page.index'));
 });
+
 Breadcrumbs::for('admin.page.edit', function (BreadcrumbTrail $trail, Page $firstPage) {
     $trail->parent('admin.page');
      
     $trail->push(Page::breadcrumbPageTitle($firstPage) , route('admin.page.index'));
 });
+
+Breadcrumbs::for('page.show', function (BreadcrumbTrail $trail, Page $page) {
+     $trail->parent('index');
+    
+     $trail->push(Page::breadcrumbPageShowTitle($page) , route('index'));
+});
+
 
 // Home > Blog
 Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {
