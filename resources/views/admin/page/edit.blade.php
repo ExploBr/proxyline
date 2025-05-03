@@ -12,6 +12,7 @@
     <update-page-component
         :data = '@json($page)'
         :datameta = '@json($page_metas)'
+        :dataseo = '@json($page_seo)'
     ></update-page-component>
   
 </div> 

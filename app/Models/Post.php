@@ -11,4 +11,9 @@ class Post extends Model
 
     protected $table = 'posts';
     protected $guarded = false;
+
+    public function getRouteKeyName(){
+        return 'slug';
+    }
+
 }

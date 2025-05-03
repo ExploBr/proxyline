@@ -4,6 +4,8 @@
 // this import. This is nice for IDE syntax and refactoring.
 
 use App\Models\Page;
+use App\Models\PageLangs;
+use App\Models\Post;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
 // This import is also not required, and you could replace `BreadcrumbTrail $trail`
@@ -11,8 +13,15 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 // Home
+ 
 Breadcrumbs::for('index', function (BreadcrumbTrail $trail) {
     $trail->push('Proxyline', route('index'));
+});
+Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {
+    $instruction = Page::where('template','=','instruction')->value('id');
+    $instruction_slug = Page::where('template','=','instruction')->value('slug');
+    $instruction_main = PageLangs::where('page_id', '=', $instruction)->value('title');
+    $trail->push( $instruction_main , route('page.show',  $instruction_slug));
 });
 
 Breadcrumbs::for('admin', function (BreadcrumbTrail $trail) {
@@ -35,15 +44,12 @@ Breadcrumbs::for('page.show', function (BreadcrumbTrail $trail, Page $page) {
      $trail->push(Page::breadcrumbPageShowTitle($page) , route('index'));
 });
 
-
-// Home > Blog
-Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {
-    $trail->parent('home');
-    $trail->push('Blog', route('blog'));
+Breadcrumbs::for('post.show', function (BreadcrumbTrail $trail, Post $page) {
+     $trail->parent('index');
+     $trail->parent('blog');
+    
+     $trail->push($page->title , route('index'));
 });
 
-// Home > Blog > [Category]
-Breadcrumbs::for('category', function (BreadcrumbTrail $trail, $category) {
-    $trail->parent('blog');
-    $trail->push($category->title, route('category', $category));
-});
+
+ 

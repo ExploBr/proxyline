@@ -45,10 +45,10 @@
 
 
           <li class="nav-item">
-            <a href="{{ route('admin.page.index') }}" class="nav-link">
+            <a href="{{ route('admin.post.index') }}" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-              Блог
+                Инструкции
                 <span class="badge badge-info right"><!-- $posts->total() --></span>
               </p>
             </a>

@@ -140,7 +140,21 @@
     "IPv4 proxy":"Прокси IPv4",
     "IPv6 proxy":"Прокси IPv6",
     "Wholesalers":"Оптовикам",
-    "Privacy Policy":"Политика конфиденциальности"
+    "Privacy Policy":"Политика конфиденциальности",
+    "Service rules":"Правила сервиса",
+    "User Agreement":"Пользовательское соглашение",
+    "General information about proxies":"Общая информация о прокси",
+    "General questions about the service":"Общие вопросы по работе сервиса",
+    "Your API key":"Ваш API-key",
+    "For authorization, you need to pass your api-key in each request. You can do this by adding the <code>api_key</code> parameter equal to your key to the request, or by passing the <code>API-KEY</code> header.":"Для авторизации необходимо в каждом запросе передавать ваш api-key. Это можно сделать, добавив в запрос параметр <code>api_key</code>  равный вашему ключу, либо передать заголовок <code>API-KEY</code>.",
+    "Restrictions":"Ограничения",
+    "The maximum number of requests per minute is 50.":"Максимальное количество запросов за минуту — 50.",
+    "Question — Answer":"Вопрос — Ответ",
+    "More":"Подробнее",
+    "Search":"Поиск",
+    "Nothing found matching your request":"По вашему запросу ничего не найдено",
+    "Instructions":"Инструкции"
+     
 
 
      

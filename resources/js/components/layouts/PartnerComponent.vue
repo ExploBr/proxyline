@@ -6,7 +6,7 @@
         </div>
         <div class="count__rub count__item">
             
-            <span class="numbers numbers-rub"> <vue3-autocounter ref='counter2' :startAmount="0" :endAmount="partner_income_rub"  :duration="4" separator="." :autoinit="false"></vue3-autocounter> {{$t('MILLION ₽')}}</span>
+            <span class="numbers numbers-rub"> <vue3-autocounter ref='counter2' :startAmount="0" :endAmount="partner_income_rub"  :duration="4" separator="." :autoinit="false"></vue3-autocounter> ₽</span>
  
         </div>
     </div>

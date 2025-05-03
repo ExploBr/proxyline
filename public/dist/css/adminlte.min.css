@@ -108,3 +108,21 @@
   height: 20px;
   margin-right: 8px;
 }
+
+.card .card-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width:100%;
+}
+.card .card-header>div{
+  display: flex;
+  align-items: center;
+  gap:20px
+}
+.note-toolbar.card-header{
+  justify-content: start;
+}
+.card-header:after{
+  display: none;
+}

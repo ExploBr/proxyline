@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MainContentOptions;
 use App\Models\MainOption;
 use App\Models\Page;
+use App\Models\SeoInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,6 +19,13 @@ class IndexController extends Controller
         ->leftJoin('page_langs','pages.id', '=','page_langs.page_id')->firstOr(function () {
             abort(404);
         });
+
+        $page_seo = Page::where('seo_infos.page_id', '=', $page->page_id)
+          ->where('seo_infos.lang','=', app()->getLocale())
+         ->leftJoin('seo_infos','pages.id', '=','seo_infos.page_id')->select( 'name', 'content','lang')
+         ->get();
+         $page_seo = json_decode($page_seo);
+
         
         $advantages = MainContentOptions::where('name','=', 'advantages')->value('content');  
         $advantages = json_decode($advantages);
@@ -60,9 +68,10 @@ class IndexController extends Controller
 
         $course_usd = DB::table('api_info')->where('name', '=',  "course_usd")->value('content');
 
+         
         
 
         return view("index", 
-        compact("page", 'advantages', 'whereuse', 'seoblock', 'affilateblock', 'data_calculator', 'modal_info', 'reviews_ru', 'reviews_en', 'menu_top', 'socials', 'course_usd', 'menu_info', 'menu_main_bottom'));
+        compact("page", 'advantages', 'whereuse', 'seoblock', 'affilateblock', 'data_calculator', 'modal_info', 'reviews_ru', 'reviews_en', 'menu_top', 'socials', 'course_usd', 'menu_info', 'menu_main_bottom', 'page_seo'));
     }
 }

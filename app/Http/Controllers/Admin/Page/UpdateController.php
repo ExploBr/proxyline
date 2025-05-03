@@ -12,6 +12,7 @@ use App\Http\Requests\Page\UpdateRequest;
 use App\Models\Page;
 use App\Models\PageLangs;
 use App\Models\PageMeta;
+use App\Models\SeoInfo;
 use Illuminate\Support\Facades\Storage;
 use App\Services\OpenAIService;
 
@@ -26,7 +27,7 @@ class UpdateController extends BaseController
         
     
         $data = $request->validated();
-
+        
         $languages = ['ru','en','fr'];
 
         $pagesslug = Page::where("slug", $data["slug"])->value('slug');
@@ -59,11 +60,27 @@ class UpdateController extends BaseController
                      if($elem['name'] == 'ipv_content_top' || $elem['name'] == 'ipv_content_bottom' || $elem['name'] == 'steps'){
                         $elem['content'] = DomCreate::createDom($elem['content']);
                     }    
+
+                    if($elem['name'] == 'faq1' || $elem['name'] == 'faq2'){
+                        $elem['content'] = json_encode($elem['content'], JSON_UNESCAPED_UNICODE);
+                    }
                     PageMeta::
                     updateOrCreate(['page_id' =>  $page->id, 'name' => $elem['name'], 'lang' => $data['lang'] ],['name' => $elem['name'], 'content' => $elem['content'], 'lang' => $data['lang']]  ); 
                      
                 }                 
             }   
+
+            if(isset($data['seo'])){
+                foreach($data['seo'] as $key => $elem){    
+                    SeoInfo::updateOrCreate(['page_id' => $page->id, 'name' => $elem['name'], 'lang' => $data['lang']],
+                   ['name' => $elem['name'], 'content' => $elem['content'], 'lang' => $data['lang']] 
+                ); 
+              
+    
+                }
+                 
+            }
+
             
 
         }
@@ -129,6 +146,23 @@ class UpdateController extends BaseController
                     }
                      
                 }   
+
+                if(isset($data['seo'])){
+                    foreach($data['seo'] as $key => $elem){    
+                        
+                        if($language != 'ru'){
+                            //   $result = $this->openAIService->translate($elem['content'], $translatelang);
+                            //   $newContent =   $result[0]['content'];
+                            }
+
+                            SeoInfo::updateOrCreate(['page_id' => $page->id, 'name' => $elem['name'], 'lang' => $data['lang']],
+                            ['name' => $elem['name'], 'content' => $elem['content'], 'lang' => $data['lang']] 
+                    ); 
+                  
+        
+                    }
+                     
+                }
   
 
         }

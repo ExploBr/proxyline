@@ -55,6 +55,9 @@
                             <option value="freeproxy">Бесплатные прокси</option>
                             <option value="myip">Мой IP</option>
                             <option value="anonymous">Анонимность</option>
+                            <option value="faq">Faq</option>
+                            <option value="apipage">Api</option>
+                            <option value="instruction">Общая инструкций</option>
                         </select>
                     </div>
                 </div>
@@ -95,6 +98,7 @@
                     <div class="from-group" v-if="item.template == 'txtpage'">
                         <TxtComponent :metas="metas" :newlang = "lang == 'all' ? 'ru' : lang"></TxtComponent>
                     </div>
+                    
 
                     <div class="from-group" v-if="item.template == 'contact'">
                         <ContactComponent :metas="metas" :newlang = "lang == 'all' ? 'ru' : lang"></ContactComponent>
@@ -141,6 +145,26 @@
                                             {{ metas[0].content }}
                             </textarea>
                     </div>
+
+                    <div class="from-group" v-if="item.template == 'faq'">
+                        <FaqComponent :metas="metas" :newlang = "lang == 'all' ? 'ru' : lang"></FaqComponent>
+                    </div>
+
+                    <div class="from-group" v-if="item.template == 'apipage'">
+                        <textarea v-model="metas[0].content" class="w-100" rows="5" id="zagolovok">
+                                            {{ metas[0].content }}
+                            </textarea>
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-group mt-25">
+                    <h2>СЕО</h2>
+                    <div class="from-group">
+                        <SeoComponent :seo="seo" :newlang = "lang == 'all' ? 'ru' : lang"></SeoComponent>
+                    </div>
                 </div>
 
             </div>
@@ -170,10 +194,12 @@ import PartnersComponent from "./templates/PartnersComponent.vue";
 import OptComponent from "./templates/OptComponent.vue";
 import CenyComponent from "./templates/CenyComponent.vue";
 import TxtComponent from "./templates/TxtComponent.vue";
+import SeoComponent from "./templates/SeoComponent.vue";
+import FaqComponent from "./templates/FaqComponent.vue";
 export default {
     name: "UpdatePageComponent",
 
-    props: ["data", "datameta"],
+    props: ["data", "datameta" , 'dataseo'],
     data() {
         return {
             lang: 'ru',
@@ -184,10 +210,11 @@ export default {
             template: null,
             metas: this.datameta === null ? [] :   this.datameta,
             maindata:this.data === null ? [] :   this.data,
+            seo:this.dataseo === null ? [] :   this.dataseo,
         };
     },
     mounted() {
-     
+        console.log(this.metas);
         // this.templateChange();
          this.langChange();
     },
@@ -199,13 +226,21 @@ export default {
                 
                 if(element.lang == this.lang || (this.lang == 'all' && element.lang == 'ru')){
                     
-                let metadata = [];+
+                let metadata = [];
+                let seo_data = [];
                 console.log(this.metas);
                 this.metas.forEach(element => {
-                     
+                   
                     if(element.lang == this.lang || (this.lang == 'all' && element.lang == 'ru'))
                     metadata.push(element);
                 });
+
+              console.log(this.seo);
+                this.seo.forEach(element => {     
+                            
+                     if(element.lang == this.lang || (this.lang == 'all' && element.lang == 'ru'))
+                     seo_data.push(element);
+                 });
                 
 
                 api.patch(`/api/auth/admin/page/${element.slug}`, {
@@ -215,6 +250,7 @@ export default {
                     publish: this.maindata[0].publish,
                     template: element.template,
                     metas: metadata,
+                    seo:seo_data,
                     lang : this.lang
                  })
                 .then((res) => {
@@ -236,6 +272,7 @@ export default {
         templateChange(event) {
 
             let LangData = [];
+            let LangSeo = [];
 
 
             // Adding languages ​​available in the array
@@ -243,6 +280,11 @@ export default {
             this.metas.forEach((element,index) => {
                 LangData.push(element.lang)
             })
+
+            this.dataseo.forEach((element,index) => {
+                LangSeo.push(element.lang)
+            })
+
 
 
             // If there is no current language,
@@ -258,12 +300,28 @@ export default {
                  
 
             }
+            if(LangSeo.includes(this.lang) == false && this.lang != 'all'){
+
+                this.seo.forEach(element => {
+                    if(element.lang == 'ru'){
+                     this.seo.push({name:element.name,content:"", lang: this.lang})
+                    }
+                });
+                 
+
+            }
 
 
            this.metas.forEach(element => {
                 if(element.lang == this.lang){
                     
                     this.metas = this.datameta;
+                }
+            });
+           this.seo.forEach(element => {
+                if(element.lang == this.lang){
+                    
+                    this.seo = this.dataseo;
                 }
             });
 
@@ -330,6 +388,15 @@ export default {
 
             let LangData = [];
 
+            let LangSeo = [];
+
+
+            // Adding languages ​​available in the array
+
+            this.dataseo.forEach((element,index) => {
+                LangSeo.push(element.lang)
+            })
+
             this.maindata.forEach((element,index) => {
                 LangData.push(element.lang)
             })
@@ -342,6 +409,17 @@ export default {
                      this.metas.push({name:element.name,content:"", lang: this.lang})
                     }
                 });
+            }
+
+            if(LangSeo.includes(this.lang) == false && this.lang != 'all'){
+
+            this.seo.forEach(element => {
+                if(element.lang == 'ru'){
+                this.seo.push({name:element.name,content:"", lang: this.lang})
+                }
+            });
+            
+
             }
 
              
@@ -389,6 +467,7 @@ export default {
 
             var $vm = this;
                 this.metas.forEach((element,index) => {
+                    console.log(element.name);
                     if(element.lang == this.lang){
 
                     if($(`textarea#${element.name}`)){
@@ -425,7 +504,9 @@ export default {
         PartnersComponent,
         OptComponent,
         CenyComponent,
-        TxtComponent
+        TxtComponent,
+        SeoComponent,
+        FaqComponent,
     },
     computed: {
         getPublish:{

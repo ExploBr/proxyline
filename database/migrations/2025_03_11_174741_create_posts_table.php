@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
           //  $table->string('title');
             $table->string('slug')->unique();
+            $table->text('preview')->nullable();
+            $table->text('created')->nullable();
           //  $table->text('content');
           //  $table->string('template');
             $table->boolean('publish');

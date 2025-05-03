@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin | Dashboard</title>
 
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('storage/images/favicons/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('storage/images/favicons/favicon-32x32.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('storage/images/favicons/apple-touch-icon.png') }}">
+    
   <link rel="stylesheet" href="{{ asset('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback') }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
@@ -27,7 +31,7 @@
  
   <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-
+  
   @vite(['resources/js/app-admin.js'])
 </head>
 <body class="hold-transition sidebar-mini   layout-navbar-fixed">
@@ -46,10 +50,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ route('admin.index') }}" class="nav-link">Страницы</a>
+        <a href="{{ route('admin.page.index') }}" class="nav-link">Страницы</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Блог</a>
+        <a href="{{ route('admin.post.index') }}" class="nav-link">Инструкции</a>
       </li>
     </ul>
 

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', $page->title)
+ 
 @section('content')
 <div  class="main__banner"> 
     <div class="container">

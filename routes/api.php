@@ -31,6 +31,11 @@ Route::get('/user', function (Request $request) {
                 Route::patch('/admin/page/{page}', UpdateController::class);
                 
             });
+            Route::namespace('App\Http\Controllers\Admin\Posts')->group(function () {
+                Route::post('/admin/post', StoreController::class);
+                Route::patch('/admin/post/{post}', UpdateController::class);
+                
+            });
 
             Route::group(['namespace'=>'App\Http\Controllers\Admin\MainContent'],function () {
                 Route::post('/admin/main-content', MainStoreController::class);

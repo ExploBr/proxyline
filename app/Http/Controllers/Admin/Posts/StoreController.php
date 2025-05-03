@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Page;
+namespace App\Http\Controllers\Admin\Posts;
+
 
 use App\Helpers\DomCreate;
 use App\Http\Controllers\Controller;
 use App\Models\SeoInfo;
 use Illuminate\Http\Request;
-use App\Http\Requests\Page\StoreRequest;
-use App\Http\Resources\Page\PageResource;
-use App\Models\Page;
-use App\Models\PageLangs;
-use App\Models\PageMeta;
+use App\Http\Requests\Post\StoreRequest;
+use App\Models\Post;
+use App\Models\PostLangs;
 use Illuminate\Support\Facades\Storage;
 
 class StoreController extends BaseController
@@ -32,10 +31,14 @@ class StoreController extends BaseController
 
 
         if($data['lang'] != 'all'){
-            
-             $page = Page::firstOrCreate(['slug' => $data['slug']] , 
-        ['slug' => $data['slug'], 'publish' => $data['publish'], 'template' => $data['template']]); 
-
+            if(isset($data['preview'])){
+                $preview = DomCreate::createDom($data['preview']);
+            }else{
+                $preview = null;
+            }
+             $post = Post::firstOrCreate(['slug' => $data['slug']] , 
+        ['slug' => $data['slug'], 'publish' => $data['publish'], 'preview' => $preview, 'created' => $data['created']]); 
+          
 
         // for langs data
 
@@ -46,37 +49,18 @@ class StoreController extends BaseController
              }else{
             $content = null;
              }
-            PageLangs::firstOrCreate(['page_id' => $page->id, 'title' => $data['title'], 'lang' => $data['lang']],
+
+            PostLangs::firstOrCreate(['post_id' => $post->id, 'title' => $data['title'], 'lang' => $data['lang']],
         ['title' => $data['title'], 'content' => $content, 'lang' => $data['lang']]
             );
         } 
+         
 
         // for meta data
-
-        if(isset($data['metas'])){
-            foreach($data['metas'] as $key => $elem){
-          
-                
-                if($key == 'ipv_content_top' || $key == 'ipv_content_bottom' || $key == 'steps'){
-                    $elem = DomCreate::createDom($elem);
-                }    
-                if($key == 'faq1' || $key == 'faq2'){
-                    $elem = json_encode($elem, JSON_UNESCAPED_UNICODE);
-                }
-            
-               PageMeta::firstOrCreate(['page_id' => $page->id, 'name' => $key, 'lang' => $data['lang']],
-               ['name' => $key, 'content' => $elem, 'lang' => $data['lang']] 
-            ); 
-          
-
-            }
-             
-        }
-
-
+ 
          if(isset($data['seo'])){
             foreach($data['seo'] as $key => $elem){    
-                SeoInfo::firstOrCreate(['page_id' => $page->id, 'name' => $key, 'lang' => $data['lang']],
+                SeoInfo::firstOrCreate(['post_id' => $post->id, 'name' => $key, 'lang' => $data['lang']],
                ['name' => $key, 'content' => $elem, 'lang' => $data['lang']] 
             ); 
           
@@ -93,8 +77,15 @@ class StoreController extends BaseController
                 $translatelang = 'French';
             }
 
-            $page = Page::firstOrCreate(['slug' => $data['slug']] , 
-            ['slug' => $data['slug'], 'publish' => $data['publish'], 'template' => $data['template']]); 
+            if(isset($data['preview'])){
+                $preview = DomCreate::createDom($data['preview']);
+            }else{
+                $preview = null;
+            }
+             $post = Post::firstOrCreate(['slug' => $data['slug']] , 
+        ['slug' => $data['slug'], 'publish' => $data['publish'], 'preview' => $preview, 'created' => $data['created']]); 
+          
+  
 
 
             // for langs data
@@ -116,38 +107,13 @@ class StoreController extends BaseController
                    // $newTitle =   $result2[0]['content'];
                  }
 
-                PageLangs::firstOrCreate(['page_id' => $page->id, 'title' => $data['title'], 'lang' => $language],
+                PostLangs::firstOrCreate(['post_id' => $post->id, 'title' => $data['title'], 'lang' => $language],
             ['title' => $data['title'], 'content' => $content, 'lang' => $language]
                 );
             }
 
             // for meta data
-
-            if(isset($data['metas'])){
-                foreach($data['metas'] as $key => $elem){
-                    
-                    if($language != 'ru'){
-                        //   $result = $this->openAIService->translate($elem['content'], $translatelang);
-                        //   $newContent =   $result[0]['content'];
-                        }
-
-                 
-                    if($key == 'ipv_content_top' || $key == 'ipv_content_bottom' || $key == 'steps'){
-                        $elem = DomCreate::createDom($elem);
-                     }    
-                     if($key == 'faq1' || $key == 'faq2'){
-                        $elem = json_encode($elem, JSON_UNESCAPED_UNICODE);
-                    }
  
-
-                PageMeta::firstOrCreate(['page_id' => $page->id, 'name' => $key, 'lang' => $language],
-                ['name' => $key, 'content' => $elem, 'lang' => $language] 
-                ); 
-            
-
-                }
-                
-            }
 
             if(isset($data['seo'])){
                 
@@ -160,7 +126,7 @@ class StoreController extends BaseController
                         }
 
 
-                    SeoInfo::firstOrCreate(['page_id' => $page->id, 'name' => $key, 'lang' => $language],
+                    SeoInfo::firstOrCreate(['post_id' => $post->id, 'name' => $key, 'lang' => $language],
                    ['name' => $key, 'content' => $elem, 'lang' => $language] 
                 ); 
               
@@ -172,8 +138,7 @@ class StoreController extends BaseController
         }
 
     }
-        return $page;
-        //return redirect()->route("admin.page.index");
-        //return new PageResource($page);
+        return $post;
+ 
     }
 }

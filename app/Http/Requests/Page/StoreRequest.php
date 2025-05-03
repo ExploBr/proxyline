@@ -30,6 +30,7 @@ class StoreRequest extends FormRequest
             "content"=> "",
             "publish"=>"",
             "metas"=>"",
+            "seo"=>"",
         ];
     }
 }

@@ -16,6 +16,8 @@ import LoginComponent from './components/LoginComponent.vue';
 import AdminMainComponent from './components/AdminMainComponent.vue';
 import MainContentComponent from './components/MainContentComponent.vue';
 import MainOptionComponent from './components/MainOption/MainOptionComponent.vue';
+import CreatePostComponent from './components/Posts/CreatePostComponent.vue';
+import UpdatePostComponent from './components/Posts/UpdatePostComponent.vue';
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -30,7 +32,9 @@ const app = createApp({
         LoginComponent,
         AdminMainComponent,
         MainContentComponent,
-        MainOptionComponent
+        MainOptionComponent,
+        CreatePostComponent,
+        UpdatePostComponent,
         
       },
 

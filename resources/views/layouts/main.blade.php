@@ -4,9 +4,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title')</title>
+    @if (isset($page_seo) && count($page_seo) > 0)
+        @foreach ($page_seo as $item)
+             
+            @if ($item->name == 'seo_title')
+                @if(($item->content != '' && $item->content != null))
+                    <title>{{ $item->content }}</title>
+                    @continue
+                 @else 
+                    <title>{{ $page->title }}</title>
+                    @continue
+                @endif
+            @endif
+ 
+            @if ($item->name == 'seo_description')
+                <meta name="description" content="{{ $item->content }}">
+                @continue
+            @endif
 
-   
+            @if($item->name == 'seo_noindex')
+                @if($item->content != '')
+                    <meta name="robots" content="{{ $item->content }}">
+                    @continue
+                @else
+                    <meta name="robots" content="index, follow">
+                    @continue
+                @endif
+            @endif
+            
+        @endforeach
+ 
+    @else
+
+        <title>{{ $page->title }}</title>
+        <meta name="description" content="{{ mb_substr(strip_tags($page->content),0, 150) }}">
+        <meta name="robots" content="index, follow">
+    @endif
+
+    <meta property="og:site_name" content="proxyline.net">
+    <meta property="og:locale" content="{{ app()->getLocale() }}">
+    <meta property="og:url" content="{{  url()->full() }}">
+     
+    @if (isset($page_seo) && count($page_seo) > 0)
+        @foreach ($page_seo as $item)
+            @if($item->name == 'seo_og_title')
+                @if ($item->content != '')
+                    <meta property="og:title" content="{{ $item->content }}">
+                    @continue
+                @else
+                    <meta property="og:title" content="{{ $page->title }}">
+                    @continue
+                @endif
+            @endif
+
+            @if($item->name == 'seo_og_image')
+                @if($item->content != '')
+                    <meta property="og:image" content="{{ $item->content }}">
+                    @continue
+                @else
+                    <meta property="og:image" content="https://proxyline.net/storage/images/logo.svg">
+                    @continue
+                @endif
+            @endif
+
+            @if($item->name == 'seo_og_type')
+                @if ($item->content != '')
+                    <meta property="og:type" content="{{ $item->content }}">
+                    @continue
+                @else
+                    <meta property="og:type" content="website">
+                    @continue
+                @endif
+            @endif
+
+            @if($item->name == 'seo_og_description')
+                @if ($item->content != '')
+                    <meta property="og:description" content="{{ $item->content }}">
+                    @continue
+                @else
+                    <meta property="og:description" content="Сервис по аренде Индивидуальных IP адресов для вашего бизнеса">
+                    @continue
+                @endif
+            @endif
+
+
+        @endforeach
+
+    @else
+        <meta property="og:title" content="{{ $page->title }}">
+        <meta property="og:image" content="https://proxyline.net/storage/images/logo.svg">
+        <meta property="og:type" content="website">
+        <meta property="og:description" content="Сервис по аренде Индивидуальных IP адресов для вашего бизнеса">
+    @endif
+ 
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('storage/images/favicons/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('storage/images/favicons/favicon-32x32.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('storage/images/favicons/apple-touch-icon.png') }}">
 
     @if (isset($page) && isset($page->template) && ($page->template == 'checker' ||
      $page->template == 'speed' || $page->template == 'ports' || 

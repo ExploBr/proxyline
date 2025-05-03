@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
  
             $table->unsignedBigInteger('page_id')->nullable();
-            $table->foreign('page_id','page_langs_page_fk')->references('id')->on('pages')->onDelete('cascade');;
+            $table->foreign('page_id','page_seo_page_fk')->references('id')->on('pages')->onDelete('cascade');;
             $table->unsignedBigInteger('post_id')->nullable();
-            $table->foreign('post_id','post_langs_page_fk')->references('id')->on('posts')->onDelete('cascade');;
+            $table->foreign('post_id','post_seo_post_fk')->references('id')->on('posts')->onDelete('cascade');;
             $table->string('name');
-            $table->text('content');
+            $table->text('content')->nullable();
+            $table->string('lang');
             $table->timestamps();
         });
     }

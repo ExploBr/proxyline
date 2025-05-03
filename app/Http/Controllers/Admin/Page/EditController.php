@@ -22,10 +22,23 @@ class EditController extends Controller
        // ->where('page_metas.lang','=', app()->getLocale())
         ->leftJoin('page_metas','pages.id', '=','page_metas.page_id')->select( 'name', 'content','lang')
         ->get();
+
+        $page_seo = Page::where('seo_infos.page_id', '=', $element->page_id)
+        // ->where('page_metas.lang','=', app()->getLocale())
+         ->leftJoin('seo_infos','pages.id', '=','seo_infos.page_id')->select( 'name', 'content','lang')
+         ->get();
         }
         $firstPage = $page[0];
         
-        return view("admin.page.edit",compact("page", 'page_metas', 'firstPage'));
+        if((isset($page_metas[0]['name']) && $page_metas[0]['name'] == 'faq1') || (isset($page_metas[0]['name']) && $page_metas[0]['name'] == 'faq2')){
+          for ($i=0; $i < count($page_metas); $i++) { 
+            
+            $page_metas[$i]['content'] = json_decode($page_metas[$i]['content']);
+          }
+             
+           
+        }
+        return view("admin.page.edit",compact("page", 'page_metas', 'firstPage', 'page_seo'));
    
     }
 }

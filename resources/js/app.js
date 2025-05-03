@@ -108,10 +108,7 @@ document.querySelectorAll('a.current').forEach(element => {
   })
 });
  
-
  
- 
-
 
  
 let tab = document.querySelectorAll('.head-tab'),
@@ -152,4 +149,14 @@ if(maintab){
     }
 
   });
+}
+
+if(document.querySelector('.faq__item')){
+  let faqitem = document.querySelectorAll('.faq__item');
+  faqitem.forEach(element => {
+    element.addEventListener('click', function() {
+      this.classList.toggle('active');
+    })
+  });
+  
 }
