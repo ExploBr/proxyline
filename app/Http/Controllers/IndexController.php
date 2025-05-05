@@ -62,7 +62,23 @@ class IndexController extends Controller
     
         $menu_main_bottom  = json_decode($menu_main_bottom);
 
+        $menu_main_country = MainOption::where('name', '=', 'menu_main_country')
+        ->value('content');
+    
+        $menu_main_country  = json_decode($menu_main_country);
 
+
+        $menu_main_podmenu = MainOption::where('name', '=', 'menu_main_podmenu')
+        ->value('content');
+    
+        $menu_main_podmenu  = json_decode($menu_main_podmenu);
+
+        $all_payments = MainOption::where('name', '=', 'methods')
+        ->value('content');
+    
+        $all_payments = json_decode($all_payments);
+
+        
         $socials = MainOption::where('name', '=',  "socials")->value('content');
         $socials = json_decode($socials);
 
@@ -72,6 +88,6 @@ class IndexController extends Controller
         
 
         return view("index", 
-        compact("page", 'advantages', 'whereuse', 'seoblock', 'affilateblock', 'data_calculator', 'modal_info', 'reviews_ru', 'reviews_en', 'menu_top', 'socials', 'course_usd', 'menu_info', 'menu_main_bottom', 'page_seo'));
+        compact("page", 'advantages', 'whereuse', 'seoblock', 'affilateblock', 'data_calculator', 'modal_info', 'reviews_ru', 'reviews_en', 'menu_top', 'socials', 'course_usd', 'menu_info', 'menu_main_bottom','menu_main_country','all_payments','menu_main_podmenu', 'page_seo'));
     }
 }

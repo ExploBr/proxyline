@@ -6,7 +6,27 @@
             <option value="all">Для всех</option>
             <option value="ru" selected="selected">Русский</option>
             <option value="en">Английский</option>
+            <option value="de">Немецкий</option>
+            <option value="ze">Китайский</option>
+            <option value="hi">Хинди</option>
             <option value="fr">Французкий</option>
+            <option value="es">Испанский</option>
+            <option value="pt">Португальский</option>
+            <option value="uk">Украинский</option>
+            <option value="be">Белорусский</option>
+            <option value="lt">Литовский</option>
+            <option value="lv">Латышский</option>
+            <option value="pl">Польский</option>
+            <option value="cs">Чешский</option>
+            <option value="az">Азербайджанский</option>
+            <option value="sk">Словацкий</option>
+            <option value="et">Эстонский</option>
+            <option value="ro">Румынский</option>
+            <option value="kk">Казахский</option>
+            <option value="it">Итальянский</option>
+            <option value="nl">Нидерландский</option>
+            <option value="tr">Турецкий</option>
+            <option value="id">Индонезийский</option>
         </select>
     </div>
 
@@ -106,7 +126,7 @@ export default {
                 if (element.lang == this.lang || (this.lang == 'all' && element.lang == 'ru')) {
 
                     let seo_data = [];
-                    
+
                     console.log(this.seo);
                     this.seo.forEach(element => {
 
@@ -120,7 +140,7 @@ export default {
                             content: element.content,
                             publish: this.maindata[0].publish,
                             preview: element.preview,
-                            created:element.created,
+                            created: element.created,
                             seo: seo_data,
                             lang: this.lang
                         })
@@ -137,91 +157,97 @@ export default {
             });
 
         },
-        langChange(){
+        langChange() {
             var $vm = this;
             let LangData = [];
             let LangSeo = [];
 
-            this.dataseo.forEach((element,index) => {
+            this.dataseo.forEach((element, index) => {
                 LangSeo.push(element.lang)
             })
 
-            this.maindata.forEach((element,index) => {
+            this.maindata.forEach((element, index) => {
                 LangData.push(element.lang)
             })
 
-            if(LangData.includes(this.lang) == false && this.lang != 'all'){
-                this.maindata.push({title: '', slug: null, content: null,publish: this.maindata[0].publish, preview: this.data[0].preview, lang: this.lang})
+            if (LangData.includes(this.lang) == false && this.lang != 'all') {
+                this.maindata.push({
+                    title: '',
+                    slug: null,
+                    content: null,
+                    publish: this.maindata[0].publish,
+                    preview: this.data[0].preview,
+                    lang: this.lang
+                })
 
             }
 
-            if(LangSeo.includes(this.lang) == false && this.lang != 'all'){
+            if (LangSeo.includes(this.lang) == false && this.lang != 'all') {
 
-            this.seo.forEach(element => {
-                if(element.lang == 'ru'){
-                this.seo.push({name:element.name,content:"", lang: this.lang})
-                }
-            });
-            
+                this.seo.forEach(element => {
+                    if (element.lang == 'ru') {
+                        this.seo.push({
+                            name: element.name,
+                            content: "",
+                            lang: this.lang
+                        })
+                    }
+                });
 
             }
 
             this.seo.forEach(element => {
-                if(element.lang == this.lang){
-                    
+                if (element.lang == this.lang) {
+
                     this.seo = this.dataseo;
                 }
             });
 
+            this.$nextTick(function () {
+                this.maindata.forEach((element, index) => {
+                    if ($("#summernote")) {
+                        $("#summernote").summernote({
+                            height: 300,
 
-            this.$nextTick(function () { 
-                this.maindata.forEach((element,index) => {
-                if ($("#summernote")) {
-                         $("#summernote").summernote({
-                             height: 300,
-                             
-                             callbacks: {
-                                 
-                                 onChange: function (contents) {
-                                     $vm.maindata[index].content = contents; // сохраняем новые данные
-                                     
-                                 },
-                                 onKeydown: function(e) {
-                                     e.stopPropagation();
-                                     }
-                                 
-                             },
-                         });
-                     }
+                            callbacks: {
 
-                     if ($("#preview")) {
-                         $("#preview").summernote({
-                             height: 300,
-                             
-                             callbacks: {
-                                 
-                                 onChange: function (contents) {
-                                     $vm.maindata[index].preview = contents; // сохраняем новые данные
-                                     
-                                 },
-                                 onKeydown: function(e) {
-                                     e.stopPropagation();
-                                     }
-                                 
-                             },
-                         });
-                     }
-                    })
+                                onChange: function (contents) {
+                                    $vm.maindata[index].content = contents; // сохраняем новые данные
+
+                                },
+                                onKeydown: function (e) {
+                                    e.stopPropagation();
+                                }
+
+                            },
+                        });
+                    }
+
+                    if ($("#preview")) {
+                        $("#preview").summernote({
+                            height: 300,
+
+                            callbacks: {
+
+                                onChange: function (contents) {
+                                    $vm.maindata[index].preview = contents; // сохраняем новые данные
+
+                                },
+                                onKeydown: function (e) {
+                                    e.stopPropagation();
+                                }
+
+                            },
+                        });
+                    }
+                })
 
             })
 
-
-
-
         },
 
-        publishChange(){
-            
+        publishChange() {
+
             this.maindata[0].publish = !this.maindata[0].publish;
         }
 
@@ -230,12 +256,12 @@ export default {
         SeoComponent,
     },
     computed: {
-        getPublish:{
+        getPublish: {
             get() {
                 return this.maindata[0].publish == 1 ? true : false;
-            },       
+            },
         }
-       
+
     }
 }
 </script>

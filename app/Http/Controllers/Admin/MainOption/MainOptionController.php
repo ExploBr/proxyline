@@ -61,8 +61,18 @@ class MainOptionController extends Controller
         ->value('content');
     
         $menu_main_bottom  = json_decode($menu_main_bottom);
-        
+
+        $menu_main_country = MainOption::where('name', '=', 'menu_main_country')
+        ->value('content');
+    
+        $menu_main_country  = json_decode($menu_main_country);
+
+        $menu_main_podmenu = MainOption::where('name', '=', 'menu_main_podmenu')
+        ->value('content');
+    
+        $menu_main_podmenu  = json_decode($menu_main_podmenu);
+         
        
-        return view("admin.mainoption.index" , compact("data", "data_methods","data_reviews_ru","data_reviews_en", 'all_page', 'menu_top','socials', 'menu_info', 'menu_main_bottom'));
+        return view("admin.mainoption.index" , compact("data", "data_methods","data_reviews_ru","data_reviews_en", 'all_page', 'menu_top','socials', 'menu_info', 'menu_main_bottom', 'menu_main_country', 'menu_main_podmenu'));
     }
 }

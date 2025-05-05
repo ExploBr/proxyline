@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Page;
 
 use App\Helpers\DomCreate;
+use App\Helpers\Langs;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -28,7 +29,7 @@ class UpdateController extends BaseController
     
         $data = $request->validated();
         
-        $languages = ['ru','en','fr'];
+        $languages = Langs::LOCALES;
 
         $pagesslug = Page::where("slug", $data["slug"])->value('slug');
 
@@ -94,6 +95,61 @@ class UpdateController extends BaseController
                 $translatelang = 'English';
             }else if($language == 'fr'){
                 $translatelang = 'French';
+            }else if($language == 'de'){
+                $translatelang = 'Deutsch';
+            }else if($language == 'ze'){
+                $translatelang = 'Chinese';
+            }
+            else if($language == 'hi'){
+                $translatelang = 'Hindi';
+            }
+            else if($language == 'es'){
+                $translatelang = 'Spanish';
+            }
+            else if($language == 'pt'){
+                $translatelang = 'Portuguese';
+            }
+            else if($language == 'uk'){
+                $translatelang = 'Ukrainian';
+            }
+            else if($language == 'be'){
+                $translatelang = 'Belarusian';
+            }
+            else if($language == 'lt'){
+                $translatelang = 'Lithuanian';
+            }
+            else if($language == 'lv'){
+                $translatelang = 'Latvian';
+            }
+            else if($language == 'pl'){
+                $translatelang = 'Poland';
+            }
+            else if($language == 'cs'){
+                $translatelang = 'Czech';
+            }
+            else if($language == 'az'){
+                $translatelang = 'Azerbaijan';
+            }
+            else if($language == 'et'){
+                $translatelang = 'Estonian';
+            }
+            else if($language == 'ro'){
+                $translatelang = 'Romanian';
+            }
+            else if($language == 'kk'){
+                $translatelang = 'Kazakh';
+            }
+            else if($language == 'it'){
+                $translatelang = 'Italian';
+            }
+            else if($language == 'nl'){
+                $translatelang = 'Dutch';
+            }
+            else if($language == 'tr'){
+                $translatelang = 'Turkish';
+            }
+            else if($language == 'id'){
+                $translatelang = 'Indonesia';
             }
 
 

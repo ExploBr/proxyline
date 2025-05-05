@@ -109,6 +109,23 @@ document.querySelectorAll('a.current').forEach(element => {
 });
  
  
+document.querySelector('.all__methods--btn').addEventListener('click', function(){
+  document.querySelector('.all_payments').classList.toggle('hidden');
+  document.querySelector('.all_payments--shadow').classList.toggle('hidden');
+  document.querySelector('html').classList.toggle('menu__show')
+})
+document.querySelector('.all_payments .close__b').addEventListener('click', function(){
+  document.querySelector('.all_payments').classList.toggle('hidden');
+  document.querySelector('.all_payments--shadow').classList.toggle('hidden');
+  document.querySelector('html').classList.toggle('menu__show')
+})
+document.querySelector('.all_payments--shadow').addEventListener('click', function(){
+  document.querySelector('.all_payments').classList.toggle('hidden');
+  document.querySelector('.all_payments--shadow').classList.toggle('hidden');
+  document.querySelector('html').classList.toggle('menu__show')
+})
+
+ 
 
  
 let tab = document.querySelectorAll('.head-tab'),
@@ -160,3 +177,22 @@ if(document.querySelector('.faq__item')){
   });
   
 }
+
+window.addEventListener('scroll', function(event) {
+    if(window.scrollY >window.screen.height){
+      document.querySelector('#back-top').classList.add('visible')
+    }else{
+      document.querySelector('#back-top').classList.remove('visible')
+    }
+
+})
+document.querySelector('#back-top').onclick = (e) => {
+ e.preventDefault();
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+  });
+}
+
+ 

@@ -26,8 +26,11 @@
 
             <div class="agreement_info">
                 {{$t('By purchasing our proxies you agree to the terms')}}
-                <a href="/polzovatelskoe-soglashenie/">{{$t('user agreement')}}</a>
-                 {{$t('and')}} <a href="/private-policy/">{{$t('privacy policy')}}</a> 
+                <a href="/polzovatelskoe-soglashenie/" v-if="lang == 'ru'">{{$t('user agreement')}}</a>
+                <a :href="'/'+lang+'/polzovatelskoe-soglashenie/'" v-else>{{$t('user agreement')}}</a>
+
+                 {{$t('and')}} <a href="/private-policy/" v-if="lang == 'ru'">{{$t('privacy policy')}}</a> 
+                                <a :href="'/'+lang+'/private-policy/'" v-else>{{$t('privacy policy')}}</a> 
                 </div>
          
 

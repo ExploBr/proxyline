@@ -8,6 +8,7 @@ use App\Models\MainContentOptions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\DomCreate;
+use App\Helpers\Langs;
 
 class MainStoreController extends Controller
 {
@@ -16,7 +17,7 @@ class MainStoreController extends Controller
     {
         $data = $request->validated();
 
-        $languages = ['ru', 'en', 'fr'];
+        $languages = Langs::LOCALES;
 
         $adv_images = isset($data["adv_images"]) ? $data["adv_images"] : null;
         $adv_imageshas = isset($data["adv_imageshas"]) ? $data["adv_imageshas"] : null;
@@ -188,7 +189,67 @@ class MainStoreController extends Controller
         } else {
             foreach ($languages as $language) {
 
-
+                if($language == 'en'){
+                    $translatelang = 'English';
+                }else if($language == 'fr'){
+                    $translatelang = 'French';
+                }else if($language == 'de'){
+                    $translatelang = 'Deutsch';
+                }else if($language == 'ze'){
+                    $translatelang = 'Chinese';
+                }
+                else if($language == 'hi'){
+                    $translatelang = 'Hindi';
+                }
+                else if($language == 'es'){
+                    $translatelang = 'Spanish';
+                }
+                else if($language == 'pt'){
+                    $translatelang = 'Portuguese';
+                }
+                else if($language == 'uk'){
+                    $translatelang = 'Ukrainian';
+                }
+                else if($language == 'be'){
+                    $translatelang = 'Belarusian';
+                }
+                else if($language == 'lt'){
+                    $translatelang = 'Lithuanian';
+                }
+                else if($language == 'lv'){
+                    $translatelang = 'Latvian';
+                }
+                else if($language == 'pl'){
+                    $translatelang = 'Poland';
+                }
+                else if($language == 'cs'){
+                    $translatelang = 'Czech';
+                }
+                else if($language == 'az'){
+                    $translatelang = 'Azerbaijan';
+                }
+                else if($language == 'et'){
+                    $translatelang = 'Estonian';
+                }
+                else if($language == 'ro'){
+                    $translatelang = 'Romanian';
+                }
+                else if($language == 'kk'){
+                    $translatelang = 'Kazakh';
+                }
+                else if($language == 'it'){
+                    $translatelang = 'Italian';
+                }
+                else if($language == 'nl'){
+                    $translatelang = 'Dutch';
+                }
+                else if($language == 'tr'){
+                    $translatelang = 'Turkish';
+                }
+                else if($language == 'id'){
+                    $translatelang = 'Indonesia';
+                }
+                
                 // ADVANTAGES SAVE
                 if ($adv_sort != null) {
                     foreach ($adv_sort as $key => $value) {

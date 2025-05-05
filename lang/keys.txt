@@ -1,0 +1,166 @@
+{
+    "Buy Proxy":
+    "Rent of individual anonymous IP addresses":
+    "Proxy at work":
+    "clients chose us": 
+    "repeat orders": 
+    "orders processed": 
+    "Rent individual proxies from 5 days":
+    "money back guarantee": 
+    "48 hours" :
+    "Suitable for popular services:" :
+    "Our advantages":
+    "Proxy cost":
+    "view all payment methods":
+    "By country":
+    "Basics":
+    "Information":
+    "Contacts":
+    "Where to use proxies?" : 
+    "Affiliate program":
+    "find out more":
+    "Our partners have already earned":
+    "Our partners":
+    "already earned" :
+    "up to 3 people":
+    "Issued to one person":
+    "IPv4 Shared Proxy":
+    "Individual IPv4 Proxies":
+    "IPv6/32 Proxy":
+    "See for what purposes":
+    "Country":
+    "Search country":
+    "Country not found":
+    "Qty": 
+    "Limit for 1 order - up to 2000 proxies":
+    "Price per piece":
+    "Central Bank rate:":
+    "Period":
+    "Days":
+    "Type":
+    "HTTP/Socks5 output in two formats simultaneously. Unlimited proxy traffic":
+    "Total payable":
+    "Select IP manually":
+    "Buy":
+    "Search by IP / subnet or city (in Latin)":
+    "Ready":
+    "Selected":
+    "No results were found for your search.":
+    "Attention!!! Our proxies are suitable only for white targets":
+    "By purchasing our proxies you agree to the terms":
+    "user agreement":
+    "privacy policy":
+    "and":
+    "Customer Reviews":
+    "24/7 support":
+    "every day":
+    "Review link":
+    "Many payment methods:":
+    "24 hour support":
+    "No days off":
+    "Traffic Types":
+    "MILLION ₽": 
+    "Cost of <span>one</span> IP":
+    "All countries":
+    "list of countries":
+    "days":
+    "month":
+    "months":
+    "year":
+    "Proxy type":
+    "Individual":
+    "up to 3 users":
+    "You can order more through multiple orders. This is a limit for one order.":
+    "Quantity":
+    "Price for 1 piece":
+    "Amount to pay":
+    "Order a proxy":
+    "Specify the email to which the access will be sent. <br>Check your SPAM folder!":
+    "You choosed":
+    "pc.":
+    "Period (days)":
+    "Coupon":
+    "Apply coupon":
+    "Your discount":
+    "I agree with":
+    "terms of use":
+    "*You must agree to the terms of use and privacy policy":
+    "Payment method":
+    "Pay":
+    "Selected IPs": 
+    "Show all":
+    "If you have public proxies (without login and password), then IP:PORT. If you have Individual/Private (authorization by login and password), then IP:PORT:LOGIN:PASW":
+    "Start checking":
+    "Proxy list":
+    "Test results":
+    "valid":
+    "invalid":
+    "Show all proxies":
+    "Clear results":
+    "Provider":
+    "OS":
+    "Browser":
+    "Your IP":
+    "Port":
+    "Verified":
+    "Checks":
+    "Congratulations, the site supports IPv6":
+    "The site does not support IPv6":
+    "Highly anonymous":
+    "Anonymous":
+    "Transparent":
+    "country, city":
+    "anonymity":
+    "City":
+    "Index":
+    "Region":
+    "Time zone":
+    "My privacy":
+    "Location":
+    "Screen":
+    "Time":
+    "Language":
+    "Anonymizer":
+    "open ports":
+    "blacklist":
+    "Blacklisted":
+    "Proxy checker":
+    "Speed":
+    "Ports":
+    "My IP":
+    "Free proxies":
+    "Prices":
+    "Proxy wholesale":
+    "Login":
+    "Registration":
+    "rent individual proxies":
+    "Technical support and online chat works 24/7 7 days a week":
+    "About": 
+    "Proxy prices":
+    "IPv4 proxy":
+    "IPv6 proxy":
+    "Wholesalers":
+    "Privacy Policy":
+    "Service rules":
+    "User Agreement":
+    "General information about proxies":
+    "General questions about the service":
+    "Your API key":
+    "For authorization, you need to pass your api-key in each request. You can do this by adding the <code>api_key</code> parameter equal to your key to the request, or by passing the <code>API-KEY</code> header.":
+    "Restrictions":
+    "The maximum number of requests per minute is 50.":
+    "Question — Answer":
+    "More":
+    "Search":
+    "Nothing found matching your request":
+    "Instructions":
+    "Payment methods":
+    "Proxy servers":
+    "See all":
+    "Directory of all proxies":
+    "Russia":
+    "Ukraine":
+    "VKontakte":
+    "Classmates":
+ 
+}

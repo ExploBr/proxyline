@@ -92,7 +92,20 @@ class ShowPageController extends Controller
         ->value('content');
     
         $menu_main_bottom  = json_decode($menu_main_bottom);
+
+        $menu_main_country = MainOption::where('name', '=', 'menu_main_country')
+        ->value('content');
+    
+        $menu_main_country  = json_decode($menu_main_country);
         
+        $menu_main_podmenu = MainOption::where('name', '=', 'menu_main_podmenu')
+        ->value('content');
+    
+        $menu_main_podmenu  = json_decode($menu_main_podmenu);
+
+        $all_payments = MainOption::where('name', '=', 'methods')
+        ->value('content');
+        $all_payments  = json_decode( $all_payments);
         $course_usd = DB::table('api_info')->where('name', '=',  "course_usd")->value('content');
 
         $prices = DB::table('api_info')->where('name', '=',  "prices")->value('content');
@@ -150,6 +163,6 @@ class ShowPageController extends Controller
         else{
             $data_mass = [];
         }
-        return view("page.index",compact("page" ,"page_metas","menu_top",'socials','course_usd','menu_info','menu_main_bottom','page_seo', $data_mass));
+        return view("page.index",compact("page" ,"page_metas","menu_top",'socials','course_usd','menu_info','menu_main_bottom','menu_main_country','page_seo','all_payments','menu_main_podmenu', $data_mass));
     }
 }

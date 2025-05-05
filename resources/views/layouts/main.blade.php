@@ -155,9 +155,38 @@
                 <div class="main__navigation--wrapper">
                     <div class="main__navigation">
                         <ul>
-                        @foreach ($menu_top as $item)
+                        @foreach ($menu_top as $key => $item)
+                            @if($key == 0)
+                            <li class="parent__menu"><a href="{{ route('page.show',$item->slug) }}">{{ __($item->name) }}</a>
+                                <ul class="mainchild__menu">
+                                    
+                                         
+                                        @foreach ($menu_main_podmenu as $key => $item)
+                                        <li class="child__podmenu--wrapper"> 
+                                                <span clas="mainchild__title">{{ $item->name }}</span>
+                                                <ul class="child__podmenu"> 
+                                                    @foreach ($item->links as $key => $links)
+                                                        @if ($key+1 == count($item->links))
+                                                        <li class="all__see"><a href="{{ app()->getLocale() == 'ru' ? '/'.$links->slug : '/'.app()->getLocale().'/'.$links->slug }}">{{ __('See all') }}</a></li>
+
+                                                        @else
+                                                        <li><a href="{{ app()->getLocale() == 'ru' ? '/'.$links->slug : '/'.app()->getLocale().'/'.$links->slug }}">{!! $links->img !!}{{ __($links->name) }}</a></li>
+
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                        </li>
+                                        @endforeach
+                                     <a class="allpodmenu__link" href="{{ app()->getLocale() == 'ru' ? '/catalog' : '/'.app()->getLocale().'/catalog' }}">{{ __('Directory of all proxies') }}</a>
+                                </ul>
+                            </li>
+
+                            @else 
+
                             <li><a href="{{ route('page.show',$item->slug) }}">{{ __($item->name) }}</a></li>
-                        @endforeach
+
+                            @endif
+                         @endforeach
                         </ul>
                     </div>
 
@@ -189,8 +218,14 @@
                     @endforeach
                     @foreach (App\Helpers\Langs::LOCALES as $key => $locale)
                     @if ($locale != app()->getLocale())
-                    <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
-                    @endif
+                        @if($locale == 'be')
+                            <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/by.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
+
+                        @else  
+                            <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
+
+                        @endif
+                     @endif
                     @endforeach
 
                 </div>
@@ -292,7 +327,7 @@
                 <span class="all__methods--btn">
                     {{ __('view all payment methods') }}
                 </span>
-                <a href="" class="abuse__btn">Abuse</a>
+                <a href="{{ app()->getLocale() != 'ru' ? '/'.app()->getLocale() : '' }}/abuse" class="abuse__btn">Abuse</a>
             </div>
         </div>
 
@@ -301,8 +336,10 @@
                 <h4>{{ __('By country') }}</h4>
                 <div class="footer__links">
                     <ul>
-                        <li><a href="">Прокси России</a></li>
-                        <li><a href="">Прокси Украина</a></li>
+                        @foreach ($menu_main_country as $item)
+                            <li>{!! $item->img !!}<a href="{{ route('page.show',$item->slug) }}">{{ __($item->name) }}</a></li>
+                        @endforeach
+ 
                     </ul>
                 </div>
             </div>
@@ -355,7 +392,13 @@
         <p>{{ __('Technical support and online chat works 24/7 7 days a week') }}</p>
     </div>
 </footer>
-
+<div class="all_payments--shadow hidden"></div>
+<div class="all_payments  select__proxy-modal hidden">
+    <div class="close__b"></div>
+    <span>{{ __('Payment methods') }}</span>
+    <hr>
+    <img src="{{ asset('storage/'.$all_payments->image->path) }}" alt="payment_method">
+</div>
 <div class="mobile__menu">
     <div class="close__b close__menu"></div>
     <div class="mobile__menu--content"> 
@@ -411,7 +454,13 @@
                     @endforeach
                     @foreach (App\Helpers\Langs::LOCALES as $key => $locale)
                     @if ($locale != app()->getLocale())
-                    <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
+                    @if($locale == 'be')
+                            <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/by.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
+
+                        @else  
+                            <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
+
+                        @endif
                     @endif
                     @endforeach
 
@@ -439,6 +488,11 @@
     <div class="mobile__menu--overlay">
         
     </div>
+</div>
+
+<div id="back-top"> 
+    <a href="#">
+        <img src="{{ asset('storage/images/scrooll_top.svg') }}" alt="Scroll top"></a>
 </div>
  
 

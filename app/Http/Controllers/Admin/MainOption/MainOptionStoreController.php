@@ -245,6 +245,53 @@ class MainOptionStoreController extends Controller
 
             }
         // END MENU_MAIN_BOTTOM
+
+        // MENU_MAIN_country DATA
+        $menu_main_country = [];
+            if (isset($data["menu_main_country_name"])) {
+
+                foreach ($data["menu_main_country_name"] as $key => $value) {
+                    $menu_main_country_data = ['img' => $data["menu_main_country_img"][$key], 'name' => $value,'slug' => $data["menu_main_country_slug"][$key]];
+
+                    array_push($menu_main_country, $menu_main_country_data);
+                }
+
+                MainOption::updateOrCreate(
+                    ['name' => 'menu_main_country'],
+                    [
+                        'content' => json_encode($menu_main_country, JSON_UNESCAPED_UNICODE),            
+                    ]
+                );
+
+            }
+        // END MENU_MAIN_country
+
+
+        // MENU_MAIN_podmenu DATA
+        $menu_main_podmenu = [];
+            if (isset($data["podmenu_name"])) {
+                $imain = 0;
+                $imain2 = 0;
+                foreach ($data["podmenu_name"] as $key => $value) {
+                    $menu_main_podmenu_data = ['name'=>$value, 'links' =>[]];
+                    for ($i=0; $i < $data['podmenu_length'][$imain2]; $i++) { 
+                        array_push($menu_main_podmenu_data['links'] , ['img' => $data["menu_main_podmenu_img"][$imain], 'name' => $data["menu_main_podmenu_name"][$imain],'slug' => $data["menu_main_podmenu_slug"][$imain]]);
+                        $imain++;
+                    }
+ 
+                    array_push($menu_main_podmenu, $menu_main_podmenu_data);
+                    $imain2++;
+                }
+
+                MainOption::updateOrCreate(
+                    ['name' => 'menu_main_podmenu'],
+                    [
+                        'content' => json_encode($menu_main_podmenu, JSON_UNESCAPED_UNICODE),            
+                    ]
+                );
+
+            }
+        // END MENU_MAIN_podmenu
  
 
           // socials DATA

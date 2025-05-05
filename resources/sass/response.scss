@@ -676,7 +676,8 @@
         }
     }
     .calculator__main--wrapper{
-        grid-template-columns: 1fr 1fr 1fr;
+
+        grid-template-columns: repeat(3, calc(33.3% - 20px));
         .calculator{
             height: 100%;
             
@@ -1048,6 +1049,22 @@
         padding-left: 20px;
         padding-right: 20px;
         top: -15px;
+    }
+    .parent__menu:hover{
+        .mainchild__menu{
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
+    }
+    
+    .parent__menu ul.mainchild__menu .child__podmenu--wrapper ul a:hover{
+        color: #f9c637;
+        transition: 0.2s;
+    }
+    .parent__menu ul.mainchild__menu .allpodmenu__link:hover{
+        color: white;
+        transition: 0.2s;
     }
 
 }

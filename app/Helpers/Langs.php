@@ -6,8 +6,8 @@ namespace App\Helpers;
 
 class Langs
 {
-    const LOCALES =  ['ru', 'en', 'fr'];
-    const LOCALESNAME =  ['Россия', 'English', 'French'];
+    const LOCALES =  ['ru', 'en', 'de', 'ze','hi', 'fr','es','pt','uk','be','lt','lv','pl','cs','az','sk','et','ro','kk','it','nl','tr','id'];
+    const LOCALESNAME =  ['Россия', 'English', 'Deutsch', '中国人', 'हिन्दी', 'French', 'Spanish', 'Português','Українська','Беларускі','Lietuvių','Latviski','Polska','Ceština', 'Azərbaycan','Slovensky','Eesti keel','Română','Qazaq','Italiano','Nederlands', 'Türkçe','Indonesia'];
     public static function getLocales(){
         $locale = request()->segment(1,'');
         if($locale){

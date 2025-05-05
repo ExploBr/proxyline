@@ -16,6 +16,8 @@
     :menu_top = '@json($menu_top)'
     :menu_info = '@json($menu_info)'
     :menu_main_bottom = '@json($menu_main_bottom)'
+    :menu_main_country = '@json($menu_main_country)'
+    :menu_main_podmenu = '@json($menu_main_podmenu)'
     ></main-option-component>
     
      

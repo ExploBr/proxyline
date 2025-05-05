@@ -23,6 +23,12 @@
                 <li class="nav-item">
                     <a class="nav-link" id="menu__main-bottom-tab-tab" data-toggle="pill" href="#menu__main-bottom-tab" role="tab" aria-selected="false" aria-controls="menu__info-tab">Меню основное(футер)</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="menu__main-country-tab-tab" data-toggle="pill" href="#menu__main-country-tab" role="tab" aria-selected="false" aria-controls="menu__country-tab">Меню стран(футер)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="menu__main-podmenu-tab-tab" data-toggle="pill" href="#menu__main-podmenu-tab" role="tab" aria-selected="false" aria-controls="menu__podmenu-tab">Подменю в шапке</a>
+                </li>
         </ul>
 
         <div class="tab-content" id="content-tabContent">  
@@ -111,15 +117,17 @@
                         </div>
                         <div class="w-40">
                             <label>Url</label>
-                            <select class="form-control" v-model="item.slug">
+                            <v-select :options="allPage" v-model="item.slug"></v-select>
+                           <!--  <select class="form-control select2 " v-model="item.slug"  >
                                 <template v-for="(page, index) in all_page" :key="index"> 
                                     <option 
                                         :value="page.slug"
+                               
                                     >
                                         {{page.slug}}
                                     </option>
                                 </template>
-                            </select> 
+                            </select>  -->
                         </div>      
                         <button type="submit" class="btn btn-primary  h-50" @click.prevent="removeMenu(menu_top_data,index)">X</button>    
                         <div class="d-flex directon-column ml-25 navigation-btn">
@@ -143,15 +151,17 @@
                         </div>
                         <div class="w-40">
                             <label>Url</label>
-                            <select class="form-control" v-model="item.slug">
+                            <v-select :options="allPage" v-model="item.slug"></v-select>
+                            <!-- <select class="form-control select2" v-model="item.slug">
                                 <template v-for="(page, index) in all_page" :key="index"> 
                                     <option 
                                         :value="page.slug"
+                                      
                                     >
                                         {{page.slug}}
                                     </option>
                                 </template>
-                            </select> 
+                            </select> -->
                         </div>      
                         <button type="submit" class="btn btn-primary  h-50" @click.prevent="removeMenu(menu_info_data,index)">X</button>    
                         <div class="d-flex directon-column ml-25 navigation-btn">
@@ -175,15 +185,17 @@
                         </div>
                         <div class="w-40">
                             <label>Url</label>
-                            <select class="form-control" v-model="item.slug">
+                            <v-select :options="allPage" v-model="item.slug"></v-select>
+                            <!-- <select class="form-control select2 " v-model="item.slug" >
                                 <template v-for="(page, index) in all_page" :key="index"> 
                                     <option 
                                         :value="page.slug"
+                                      
                                     >
                                         {{page.slug}}
                                     </option>
                                 </template>
-                            </select> 
+                            </select> -->
                         </div>      
                         <button type="submit" class="btn btn-primary  h-50" @click.prevent="removeMenu(menu_main_bottom_data,index)">X</button>    
                         <div class="d-flex directon-column ml-25 navigation-btn">
@@ -194,6 +206,87 @@
                 </template>
                 <button type="submit" class="btn btn-primary " @click.prevent="addMenu(menu_main_bottom_data)">Добавить меню</button>
             </div>
+
+
+
+            <div class="tab-pane fade" id="menu__main-country-tab" role="tabpanel" aria-labelledby="menu__main-country-tab">
+                <template v-for="(item, index) in menu_main_country_data" :key="index">
+                    <div class="from-group d-flex w-100 g-10 a-bottom mb-25">
+                        <div class="w-40"> 
+                            
+                            <label>Изображение</label>
+                            <input class="form-control d-block"
+                                value="" v-model="item.img"
+                                type="text"  placeholder="Изображение">
+                            </div>
+                        <div class="w-50"> 
+                            
+                        <label>Название</label>
+                        <input class="form-control d-block"
+                            value="" v-model="item.name"
+                            type="text"  placeholder="Название">
+                        </div>
+                        <div class="w-40">
+                            <label>Url</label>
+                            <v-select :options="allPage" v-model="item.slug"></v-select>
+                            <!-- <select class="form-control select2 " v-model="item.slug" >
+                                <template v-for="(page, index) in all_page" :key="index"> 
+                                    <option 
+                                        :value="page.slug"
+                                      
+                                    >
+                                        {{page.slug}}
+                                    </option>
+                                </template>
+                            </select> -->
+                        </div>      
+                        <button type="submit" class="btn btn-primary  h-50" @click.prevent="removeMenu(menu_main_country_data,index)">X</button>    
+                        <div class="d-flex directon-column ml-25 navigation-btn">
+                            <i class="right fas fa-angle-left" @click = "MoveTop(menu_main_country_data, index)" style="transform: rotate(90deg);"></i>
+                            <i class="right fas fa-angle-left" @click = "MoveBottom(menu_main_country_data, index)" style="transform: rotate(-90deg);"></i>
+                        </div>         
+                    </div>
+                </template>
+                <button type="submit" class="btn btn-primary " @click.prevent="addMenu(menu_main_country_data, 'countries')">Добавить меню</button>
+            </div>
+
+            <div class="tab-pane fade" id="menu__main-podmenu-tab" role="tabpanel" aria-labelledby="menu__main-podmenu-tab">
+                <template v-for="(item, index) in menu_main_podmenu_data" :key="index">
+                    <h3>{{item.name}}</h3>
+                    <div> 
+                    <template v-for="(items, index) in item.links" :key="index">
+                        <div class="from-group d-flex w-100 g-10 a-bottom mb-25">
+                            <div class="w-40"> 
+                                
+                                <label>Изображение</label>
+                                <input class="form-control d-block"
+                                    value="" v-model="items.img"
+                                    type="text"  placeholder="Изображение">
+                                </div>
+                            <div class="w-50"> 
+                                
+                            <label>Название</label>
+                            <input class="form-control d-block"
+                                value="" v-model="items.name"
+                                type="text"  placeholder="Название">
+                            </div>
+                            <div class="w-40">
+                                <label>Url</label>
+                                <v-select :options="allPage" v-model="items.slug"></v-select>
+                            
+                            </div>      
+                            <button type="submit" class="btn btn-primary  h-50" @click.prevent="removeMenu(item.links,index, 'countries')">X</button>    
+                            <div class="d-flex directon-column ml-25 navigation-btn">
+                                <i class="right fas fa-angle-left" @click = "MoveTop(item.links, index, 'countries')" style="transform: rotate(90deg);"></i>
+                                <i class="right fas fa-angle-left" @click = "MoveBottom(item.links, index, 'countries')" style="transform: rotate(-90deg);"></i>
+                            </div>         
+                        </div>
+                    </template>
+                </div>
+                <button type="submit" class="btn btn-primary " @click.prevent="addMenu(item.links, 'countries')">Добавить меню</button>
+
+                </template>
+             </div>
 
             <div class="tab-pane fade" id="socials-tab" role="tabpanel" aria-labelledby="socials-tab">
                  
@@ -241,11 +334,15 @@
 import axios from 'axios';
 import Dropzone from 'dropzone';
 import api from '../../api';
-
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 export default {
     name: "MainOptionComponent",
+    components:{
+        vSelect
+    }, 
     props:[
-        'data', 'data_methods', 'data_reviews_ru', 'data_reviews_en', 'all_page', 'socials', 'menu_top', 'menu_info', 'menu_main_bottom'
+        'data', 'data_methods', 'data_reviews_ru', 'data_reviews_en', 'all_page', 'socials', 'menu_top', 'menu_info', 'menu_main_bottom','menu_main_country','menu_main_podmenu'
     ],
     data() {
         return {
@@ -258,11 +355,25 @@ export default {
             menu_top_data: this.menu_top === null || this.menu_top === undefined ? [{"name":"", "slug": ""}] : this.menu_top,
             menu_info_data: this.menu_info === null || this.menu_info === undefined ? [{"name":"", "slug": ""}] : this.menu_info,
             menu_main_bottom_data: this.menu_main_bottom === null || this.menu_main_bottom === undefined ? [{"name":"", "slug": ""}] : this.menu_main_bottom,
-            socials_data: this.socials === null || this.socials === undefined ? [{"name":"", "link": "","podpis":"","image":{} }] : this.socials
+            menu_main_country_data: this.menu_main_country === null || this.menu_main_country === undefined ? [{"img":"", "name":"", "slug": ""}] : this.menu_main_country,
+            menu_main_podmenu_data: this.menu_main_podmenu === null || this.menu_main_podmenu === undefined ?
+             [
+                {"name":"Страны", "links":[{"img":"", "name":"", "slug": ""}]},
+                {"name":"Соцсети", "links":[{"img":"", "name":"", "slug": ""}]},
+                {"name":"Игры", "links":[{"img":"", "name":"", "slug": ""}]},
+                {"name":"Софт", "links":[{"img":"", "name":"", "slug": ""}]},
+                {"name":"Другие цели", "links":[{"img":"", "name":"", "slug": ""}]},
+                {"name":"Браузер", "links":[{"img":"", "name":"", "slug": ""}]},
+                ] : this.menu_main_podmenu,
+            socials_data: this.socials === null || this.socials === undefined ? [{"name":"", "link": "","podpis":"","image":{} }] : this.socials,
+            allPage:[]
         }
     },
     mounted() {
-
+        this.allPage.push('#')
+        this.all_page.forEach(element => {
+            this.allPage.push(element.slug)
+        });
            console.log(this.menu_top);
             // add image
             this.logo_image = new Dropzone(this.$refs.logo_image, {
@@ -442,13 +553,20 @@ export default {
             },
 
 
-            addMenu(data){
-
+            addMenu(data, name=''){
+                if(name == 'countries'){
+                    data.push({  
+                    img:'',
+                    name: '', 
+                    slug:''
+                });
+                }else{
                 data.push({  
                     name: '', 
                     slug:''
                 });
-
+                }
+                
             },
 
             addSocials(data){
@@ -462,9 +580,22 @@ export default {
 
             },
 
-        removeMenu(data,index){
+        removeMenu(data,index, name = 'countries'){
+            console.log(data);
             data.splice(index, 1);   
         },
+
+        MoveTop(data,index, name = 'countries'){
+            if(index != 0){
+            [data[index-1], data[index]] = [data[index], data[index-1]];
+            }
+         },
+         MoveBottom(data,index, name = 'countries'){
+            if(index != data.length-1){
+            [data[index], data[index+1]] = [data[index+1], data[index]];
+            }
+         },
+
         removeReviewsRu(thisindex){
         
         this.reviews_ru[0].splice(thisindex, 1);   
@@ -651,24 +782,44 @@ export default {
 
             // End MENU_MAIN_BOTTOM
 
+              // add MENU_MAIN_country
+
+              this.menu_main_country_data.forEach((element,index) =>{
+                
+                data.append('menu_main_country_img[]', element.img)  
+                data.append('menu_main_country_name[]', element.name)  
+                data.append('menu_main_country_slug[]', element.slug)  
+            })
+
+            // End MENU_MAIN_country
+
+              // add MENU_MAIN_podmenu
+
+              this.menu_main_podmenu_data.forEach((element,index) =>{
+                data.append('podmenu_name[]',element.name);
+                console.log(element.links.length);
+                data.append('podmenu_length[]',element.links.length);
+                element.links.forEach(element => {
+                    data.append('menu_main_podmenu_img[]', element.img)  
+                    data.append('menu_main_podmenu_name[]', element.name)  
+                    data.append('menu_main_podmenu_slug[]', element.slug)  
+                });
+                 
+            })
+
+            // End MENU_MAIN_podmenu
+
              api.post('/api/auth/admin/main-option', data)
          },
 
 
 
-         MoveTop(data,index){
-            if(index != 0){
-            [data[index-1], data[index]] = [data[index], data[index-1]];
-            }
-         },
-         MoveBottom(data,index){
-            if(index != data.length-1){
-            [data[index], data[index+1]] = [data[index+1], data[index]];
-            }
-         }
+          
     },
+ 
+   
 }
 </script>
 <style lang="">
-    
+ 
 </style>

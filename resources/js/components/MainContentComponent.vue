@@ -7,7 +7,27 @@
                             <option value="all" >Для всех</option>
                             <option value="ru" selected="selected">Русский</option>
                             <option value="en">Английский</option>
+                            <option value="de">Немецкий</option>
+                            <option value="ze">Китайский</option>
+                            <option value="hi">Хинди</option>
                             <option value="fr">Французкий</option>
+                            <option value="es">Испанский</option>
+                            <option value="pt">Португальский</option>
+                            <option value="uk">Украинский</option>
+                            <option value="be">Белорусский</option>
+                            <option value="lt">Литовский</option>
+                            <option value="lv">Латышский</option>
+                            <option value="pl">Польский</option>
+                            <option value="cs">Чешский</option>
+                            <option value="az">Азербайджанский</option>
+                            <option value="sk">Словацкий</option>
+                            <option value="et">Эстонский</option>
+                            <option value="ro">Румынский</option>
+                            <option value="kk">Казахский</option>
+                            <option value="it">Итальянский</option>
+                            <option value="nl">Нидерландский</option>
+                            <option value="tr">Турецкий</option>
+                            <option value="id">Индонезийский</option>
                         </select>
         </div>
 
