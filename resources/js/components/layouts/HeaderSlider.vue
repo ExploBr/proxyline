@@ -9,8 +9,8 @@
                   >
                   <template  v-for="(item, index) in bottompart" > 
                     <swiper-slide class="swiper__item" >
-                        <img :src="item.image+'1.svg'">
-                        <img :src="item.image+'2.svg'">
+                        <img :src="item.image+'1.svg'" alt="socials">
+                        <img :src="item.image+'2.svg'" alt="socials">
                     </swiper-slide>
                     
                 </template>

@@ -35,6 +35,7 @@ class StoreRequest extends FormRequest
             "seoblock_content" => "",
             "affilateblock_content" => "",
             "calculatorblock_content" => "",
+            "countries"=>""
              
         ];
     }

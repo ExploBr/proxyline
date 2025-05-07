@@ -126,22 +126,22 @@
                 @if (app()->getLocale() == 'ru')
                     @if (isset($page) && $page->template == 'main')
                     <a class="logo rrl current_page_item" href="" style="pointer-events: none;">
-                        <img src="{{ asset('storage/images/logo.svg') }}" alt="proxyline.net — анонимные прокси">
+                        <img src="{{ asset('storage/images/logo.svg') }}" alt="proxyline.net — анонимные прокси" width="150" height="40">
                     </a>
                     @else
                     <a class="logo rrl current_page_item" href="/">
-                        <img src="{{ asset('storage/images/logo.svg') }}" alt="proxyline.net — анонимные прокси">
+                        <img src="{{ asset('storage/images/logo.svg') }}" alt="proxyline.net — анонимные прокси" width="150" height="40">
                     </a>
                     @endif    
                 
                 @else
                     @if (isset($page) && $page->template == 'main')
                     <a class="logo rrl current_page_item" href="" style="pointer-events: none;">
-                            <img src="{{ asset('storage/images/logo_en.svg') }}" alt="proxyline.net — анонимные прокси">
+                            <img src="{{ asset('storage/images/logo_en.svg') }}" alt="proxyline.net — анонимные прокси" width="150" height="40">
                     </a>
                     @else
                     <a class="logo rrl current_page_item" href="/{{ app()->getLocale() }}">
-                            <img src="{{ asset('storage/images/logo_en.svg') }}" alt="proxyline.net — анонимные прокси">
+                            <img src="{{ asset('storage/images/logo_en.svg') }}" alt="proxyline.net — анонимные прокси" width="150" height="40">
                     </a>
                         @endif
                 @endif
@@ -208,10 +208,11 @@
 
                 @if ($locale == app()->getLocale())
                 <li class="ru showed">
-                    <a href="" class="current"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ $locale }}</span></a>
+                    <a href="" class="current"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt="lang"><span>{{ $locale }}</span></a>
                 </li>
                 <div>
-                    <li class="ru active__lang"><a><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span> </a></li>
+                    <ul> 
+                    <li class="ru active__lang"><a><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt="lang"><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span> </a></li>
 
                     @endif
 
@@ -219,15 +220,15 @@
                     @foreach (App\Helpers\Langs::LOCALES as $key => $locale)
                     @if ($locale != app()->getLocale())
                         @if($locale == 'be')
-                            <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/by.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
+                            <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/by.svg') }}" alt="lang"><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
 
                         @else  
-                            <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
+                            <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt="lang"><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
 
                         @endif
                      @endif
                     @endforeach
-
+                    </ul>
                 </div>
             </ul>
 
@@ -301,27 +302,27 @@
                 @if (app()->getLocale() == 'ru')
                     @if (isset($page) && $page->template == 'main')
                     <a class="footer__logo" href="" style="pointer-events: none;">
-                        <img src="{{ asset('storage/images/logo.svg') }}" alt="proxyline.net — анонимные прокси">
+                        <img src="{{ asset('storage/images/logo.svg') }}" alt="proxyline.net — анонимные прокси" width="165" height="45">
                     </a>
                     @else
                     <a class="footer__logo" href="/">
-                        <img src="{{ asset('storage/images/logo.svg') }}" alt="proxyline.net — анонимные прокси">
+                        <img src="{{ asset('storage/images/logo.svg') }}" alt="proxyline.net — анонимные прокси" width="165" height="45">
                     </a>
                     @endif    
                 
                 @else
                     @if (isset($page) && $page->template == 'main')
                     <a class="footer__logo" href="" style="pointer-events: none;">
-                            <img src="{{ asset('storage/images/logo_en.svg') }}" alt="proxyline.net — анонимные прокси">
+                            <img src="{{ asset('storage/images/logo_en.svg') }}" alt="proxyline.net — анонимные прокси" width="165" height="45">
                     </a>
                     @else
                     <a class="footer__logo" href="/{{ app()->getLocale() }}">
-                            <img src="{{ asset('storage/images/logo_en.svg') }}" alt="proxyline.net — анонимные прокси">
+                            <img src="{{ asset('storage/images/logo_en.svg') }}" alt="proxyline.net — анонимные прокси" width="165" height="45">
                     </a>
                         @endif
                 @endif
                 
-                <img class="footer__pay-m" src="{{ asset('storage/images/pay-m.svg') }}" alt="">
+                <img class="footer__pay-m" src="{{ asset('storage/images/pay-m.svg') }}" alt="payments">
             </div>
             <div class="footer__methods">
                 <span class="all__methods--btn">
@@ -370,7 +371,7 @@
                         @foreach ($socials as $item)
                             <li>
                                 <a href="{{ $item->link }}">
-                                    <img src="{{ asset('storage/'. $item->image->path ) }}" alt="">
+                                    <img src="{{ asset('storage/'. $item->image->path ) }}" alt="contacts">
                                     <span class="footer__link--content"> 
                                         <span class="boldname">{{ $item->name }}</span>
                                         <span>{!! $item->podpis !!}</span>
@@ -404,9 +405,9 @@
     <div class="mobile__menu--content"> 
         <div class="logo__mobile">
             @if (app()->getLocale() == 'ru')    
-                <a href="/"> <img src="{{ asset('storage/images/proxyline_rus_black.png') }}" alt=""></a>
+                <a href="/"> <img src="{{ asset('storage/images/proxyline_rus_black.png') }}" alt="logo"></a>
             @else
-                <a href="/{{ app()->getLocale() }}"><img src="{{ asset('storage/images/proxyline_eng_black.png') }}" alt=""></a>
+                <a href="/{{ app()->getLocale() }}"><img src="{{ asset('storage/images/proxyline_eng_black.png') }}" alt="logo"></a>
             @endif
         </div>
         <div class="contact__mobile">
@@ -414,21 +415,21 @@
         <ul class="mobile__contacts--ul">
                         <li>
                             <a href="mailto:admin@proxyline.net">
-                                <img src="{{ asset('storage/images/icons/mail.svg') }}" alt="">
+                                <img src="{{ asset('storage/images/icons/mail.svg') }}" alt="contact">
                                 <span class="boldname">admin@proxyline.net</span>
                                 
                             </a>
                         </li>
                         <li>
                             <a href="https://t.me/proxyLine_bot">
-                                <img src="{{ asset('storage/images/icons/tg.svg') }}" alt="">
+                                <img src="{{ asset('storage/images/icons/tg.svg') }}" alt="contact">
                                 <span class="boldname">@ProxyLine_bot</span>
                                  
                             </a>
                         </li>
 
                         <li class="alltime__support">
-                                <img src="{{ asset('storage/images/icons/supporttime.svg') }}" alt="">
+                                <img src="{{ asset('storage/images/icons/supporttime.svg') }}" alt="contact">
                                 <span class="aside-contact">
 
                                     <span>{{ __('24 hour support') }}</span> 
@@ -444,10 +445,10 @@
 
                 @if ($locale == app()->getLocale())
                 <li class="ru showed">
-                    <a href="" class="current"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a>
+                    <a href="" class="current"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt="lang"><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a>
                 </li>
                 <div>
-                    <li class="ru active__lang"><a><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span> </a></li>
+                    <li class="ru active__lang"><a><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt="lang"><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span> </a></li>
 
                     @endif
 
@@ -455,10 +456,10 @@
                     @foreach (App\Helpers\Langs::LOCALES as $key => $locale)
                     @if ($locale != app()->getLocale())
                     @if($locale == 'be')
-                            <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/by.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
+                            <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/by.svg') }}" alt="lang"><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
 
                         @else  
-                            <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt=""><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
+                            <li class=""><a href="{{ route('setlang', $locale) }}"><img src="{{ asset('storage/images/round_flags/'.$locale.'.svg') }}" alt="lang"><span>{{ App\Helpers\Langs::LOCALESNAME[$key] }}</span></a></li>
 
                         @endif
                     @endif

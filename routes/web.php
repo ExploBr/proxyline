@@ -49,6 +49,9 @@ Route::prefix('admin')->middleware(AdminPanelMiddleware::class)->namespace('App\
     Route::group(['namespace'=>'MainOption'],function () {
         Route::get('/main-option', MainOptionController::class)->name('admin.mainoptioncontent.index');
     });
+    
+    Route::get('/catalog', 'Catalog\\'.CatalogController::class)->name('admin.catalog.index');
+    Route::get('/country', 'Countries\\'.CountriesController::class)->name('admin.country.index');
 });
  
  

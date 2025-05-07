@@ -15,7 +15,7 @@
                         <div class="reviews__item">
                             <div class="reviews__item--top">
                                 <div class="reviews__item--img">
-                                    <img src="{{ asset('/storage/'.$item->image->path) }}" alt="avatar" > 
+                                    <img src="{{ asset('storage/'.$item->image->path) }}" alt="avatar" > 
                                     <img src="{{ asset('storage/images/5star.png') }}" alt="5star" class="reviews__rating"> 
                                 </div>
                                 <div class="reviews__item--name">
@@ -39,7 +39,7 @@
                         <div class="reviews__item">
                             <div class="reviews__item--top">
                                 <div class="reviews__item--img">
-                                    <img src="{{ asset('/storage/'.$item->image->path) }}" alt="avatar"> 
+                                    <img src="{{ asset('storage/'.$item->image->path) }}" alt="avatar"> 
                                     <img src="{{ asset('storage/images/5star.png') }}" alt="5star" class="reviews__rating"> 
                                 </div>
                                 <div class="reviews__item--name">

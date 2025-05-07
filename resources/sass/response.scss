@@ -77,7 +77,7 @@
         flex-wrap: nowrap;
         gap: 5px;
     }
-    .seo__block .seo-section h2, .seo__block .seo-section .seo-one-col b{
+    .seo__block .seo-section h3, .seo__block .seo-section .seo-one-col b{
         font-size: 36px;
         line-height: 43px;
     }
@@ -423,6 +423,45 @@
             width: 40%;
         }
     }
+    .catalog__wrapper{
+    column-count: 2;
+    }
+    .podcatalog__wrapper .child__catalog{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    .main__banner--top{
+        min-height: 580px;
+    }
+
+    .all__proxy--wrapper{
+        ul.all__proxy--all{
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+        }
+        
+        .tabs{
+            gap: 10px 5px;
+        }
+        .tabs .head-tab{
+            padding: 7px 13px;
+        }
+        .tabcontent .modal__info{
+            align-items: start;
+        }
+        .proxy--modal__content{
+            width: 100%;
+            align-items: start;
+            div{
+                width: 100%;
+                ul{
+                    columns: 2;
+                }
+            }
+        }
+
+    }
 }
 
 
@@ -435,6 +474,9 @@
 
 @media screen and (min-width: 1080px){
 
+    .main__banner--top{
+        min-height: 550px;
+    }
     .container {
         max-width: 1224px;
         margin-left: auto;
@@ -1066,6 +1108,57 @@
         color: white;
         transition: 0.2s;
     }
+    .catalog__wrapper{
+        column-count: 3;
+        }
+        .podcatalog__wrapper .child__catalog{
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+
+        .all__proxy--wrapper{
+            ul.all__proxy--all{
+                grid-template-columns: repeat(5, 1fr);
+                gap: 50px;
+            }           
+            .tabs{
+                gap: 10px 15px;
+            }
+            .tabs .head-tab{
+                padding: 8px 14px;
+            }
+            .tabcontent .modal__info{
+                align-items: start;
+                max-width: 810px;
+            }
+            .proxy--modal__content{
+                width: 100%;
+                align-items: start;
+                div{
+                    width: 100%;
+                    ul{
+                        columns: 2;
+                    }
+                }
+            }
+            .tabcontent.show{
+                padding: 45px;
+            }
+    
+        }
+        .one-banner-row{
+            flex-direction: row;
+            gap: 20px;
+            img{
+                max-width: 65%;
+            }
+        }
+        .one-banner-info{
+            width: 35%;
+          .one-banner-info-inner{
+            word-break: break-all;
+          }
+        }
 
 }
 

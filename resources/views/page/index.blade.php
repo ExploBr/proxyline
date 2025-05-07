@@ -23,12 +23,19 @@
           <div class="inner__banner--content">{!! $page->content !!} </div> 
     </div>
 </div>
+@elseif($page->template == 'catalog' )
+
+<div class="breadcrumbs dark">
+    <div class="container"> 
+{{ Breadcrumbs::view('layouts.breadcrumb.pagecrumb', 'page.show' , $page) }}
+    </div>
+</div>
 @else
 <div class="breadcrumbs container">
     
-{{ Breadcrumbs::view('layouts.breadcrumb.pagecrumb', 'page.show' , $page) }}
-    
-</div>
+    {{ Breadcrumbs::view('layouts.breadcrumb.pagecrumb', 'page.show' , $page) }}
+        
+    </div> 
 @endif
 
 

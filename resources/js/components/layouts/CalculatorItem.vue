@@ -36,7 +36,7 @@
 
                                 <div  v-show="openCountries" class="country__dropdown--content">
                                             <div class="search__country">
-                                                <input type="text" v-model="countryQuery" :placeholder="$t('Search country')">
+                                                <input type="text" v-model="countryQuery" :placeholder="$t('Search country')" aria-label="Search">
                                             </div>
                                             <ul>
                                                 <template v-for="item in countries">
@@ -69,7 +69,7 @@
                                         <div class="qty__block">
                                             <button type="button" @click="qtyMinus">-</button>
                                             <input type="number" class="price__number" v-model="count"
-                                                   @change="countValidate" min="1" pattern="[0-9]{3}">
+                                                   @change="countValidate" min="1" pattern="[0-9]{3}" aria-label="Count">
                                             <button type="button" @click="qtyPlus">+</button>
                                         </div>
                                     </div>

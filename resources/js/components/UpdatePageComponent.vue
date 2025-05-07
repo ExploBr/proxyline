@@ -78,6 +78,9 @@
                             <option value="faq">Faq</option>
                             <option value="apipage">Api</option>
                             <option value="instruction">Общая инструкций</option>
+                            <option value="catalog">Каталог</option>
+                            <option value="podcatalog">Подкаталог</option>
+                            <option value="sitemap">Карта сайта</option>
                         </select>
                     </div>
                 </div>

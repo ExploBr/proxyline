@@ -1,6 +1,8 @@
 <?php
 
 use App\Helpers\CouponCheck;
+use App\Http\Controllers\Admin\Catalog\CatalogStoreController;
+use App\Http\Controllers\Admin\Countries\CountriesStoreController;
 use App\Http\Controllers\Admin\Page\TemplatesController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TranslationController;
@@ -44,6 +46,9 @@ Route::get('/user', function (Request $request) {
             Route::group(['namespace'=>'App\Http\Controllers\Admin\MainOption'],function () {
                 Route::post('/admin/main-option', MainOptionStoreController::class);
             });
+
+            Route::post('/admin/catalog', CatalogStoreController::class);
+            Route::post('/admin/country', CountriesStoreController::class);
         });
 
         

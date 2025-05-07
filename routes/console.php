@@ -10,6 +10,10 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-//Schedule::command('app:paymentMethodsCommand')->everyFiveMinutes();
-//Schedule::command('app:CalculatorDataCommand')->everyFiveMinutes();
-//Schedule::command('app:CourseCommand')->everyFiveMinutes();
+ Schedule::command('app:paymentMethodsCommand')->daily();
+ Schedule::command('app:CalculatorDataCommand')->daily();
+ Schedule::command('app:CountriesDataCommand')->daily();
+ Schedule::command('app:AvailabilityDataCommand')->daily();
+ Schedule::command('app:CourseCommand')->daily();
+ Schedule::command('app:PanelStatsCommand')->daily();
+ Schedule::command('app:PriceDataCommand')->daily();

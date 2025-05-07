@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Admin\Posts;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\Page;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class DestroyController extends BaseController
 {
-    public function __invoke(Page $page){
+    public function __invoke(Post $page){
         $page->delete();
-        return redirect()->route("admin.page.index", );
+        return redirect()->route("admin.post.index", );
     }
 }

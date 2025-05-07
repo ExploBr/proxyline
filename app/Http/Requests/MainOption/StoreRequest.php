@@ -59,7 +59,7 @@ class StoreRequest extends FormRequest
             "socials_imagePath" => "",
             "socials_imageUrl" => "",
             "socials_imageSize" => "",
-
+            "catalog" => ""
         ];
     }
 }

@@ -23,7 +23,7 @@ class PayRequest extends FormRequest
     {
         return [
              
-             
+             "crf"=>"",
             "tarif" => "",
             "ip_type"=> "",
             "ip_version"=>"",

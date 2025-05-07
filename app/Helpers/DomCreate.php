@@ -29,10 +29,10 @@ class DomCreate
         
                            Storage::disk('public')->put('images/'.$imageName, $imgeData);
         
-                           $filePath = asset('/storage/images/'.$imageName);
+                           $filePath = '/storage/images/'.$imageName;
                          
                             $image->removeAttribute('src');
-                            $image->setAttribute('src', url($filePath));
+                            $image->setAttribute('src', $filePath);
                         }
                          
                     }

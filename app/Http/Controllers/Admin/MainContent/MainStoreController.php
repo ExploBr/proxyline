@@ -17,8 +17,8 @@ class MainStoreController extends Controller
     {
         $data = $request->validated();
 
-        $languages = Langs::LOCALES;
-
+       // $languages = Langs::LOCALES;
+        $languages = ['ru','en','fr'];
         $adv_images = isset($data["adv_images"]) ? $data["adv_images"] : null;
         $adv_imageshas = isset($data["adv_imageshas"]) ? $data["adv_imageshas"] : null;
         $adv_sort = isset($data["adv_sort"]) ? $data["adv_sort"] : null;
@@ -252,6 +252,7 @@ class MainStoreController extends Controller
                 
                 // ADVANTAGES SAVE
                 if ($adv_sort != null) {
+                    $adv_mass = [];
                     foreach ($adv_sort as $key => $value) {
 
                         if ($adv_imageshas != null) {
@@ -364,12 +365,13 @@ class MainStoreController extends Controller
                 // SEO SAVE
                 if($seo_content != null){
                     $content = DomCreate::createDom($seo_content[0]);
-                    $my_seoblock = ['content' => $content];
+                    
+                    $my_seoblock =  $content;
     
                     MainContentOptions::updateOrCreate(
                         ['name' => 'seoblock', 'lang' => $language],
                         [
-                            'content' => $my_seoblock,
+                            'content' =>  $my_seoblock,
                             'lang' => $language
                         ]
                     );

@@ -70,6 +70,21 @@
             </a>
              
           </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.catalog.index') }}" class="nav-link">
+              <i class="fas fa-list-ul nav-icon"></i>
+                  <p>Каталог</p>
+            </a>
+             
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ route('admin.country.index') }}" class="nav-link">
+            <i class="fas fa-globe-europe nav-icon"></i>
+                  <p>Блок стран на главной </p>
+            </a>
+             
+          </li>
  
          
            

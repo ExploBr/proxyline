@@ -3,29 +3,30 @@
         <div class="banner__info--wrapper"> 
                 <div class="banner__block">
                     <i> 
-                    <img src="/storage/images/header/i2.svg" alt="">
-                    <img class="hover" src="/storage/images/header/i2-hover.svg" alt="">
+                    <img src="/storage/images/header/i2.svg" alt="stats" width="42" height="35">
+                    <img class="hover" src="/storage/images/header/i2-hover.svg" loading="lazy" alt="stats" width="42" height="35">
                     </i>
                     <p v-if="langthis == 'ru'"> клиентов выбрали нас</p> <p v-else>{{ $t('clients chose us') }}</p><span><vue3-autocounter ref='counter' :startAmount="0" :endAmount="userCount"  :duration="4" separator=" "></vue3-autocounter></span>
                 </div>
+                
                 <div class="banner__block">
                     <i> 
-                    <img src="/storage/images/header/i3.svg" alt="">
-                    <img class="hover" src="/storage/images/header/i3-hover.svg" alt="">
-                    </i>
-                    <p v-if="langthis == 'ru'"> повторных заказов</p> <p v-else>{{ $t('repeat orders') }}</p> <span><vue3-autocounter ref='counter' :startAmount="0" :endAmount="procentZakaz"  :duration="4" separator=" "></vue3-autocounter>%</span>
-                </div>
-                <div class="banner__block">
-                    <i> 
-                    <img src="/storage/images/header/i1.svg" alt="">
-                    <img class="hover" src="/storage/images/header/i1-hover.svg" alt="">
+                    <img src="/storage/images/header/i1.svg" alt="stats" width="42" height="42">
+                    <img class="hover" src="/storage/images/header/i1-hover.svg" loading="lazy" alt="stats" width="42" height="42">
                     </i>
                     <p v-if="langthis == 'ru'"> Прокси в работе</p><p v-else>{{ $t('Proxy at work') }}</p> <span><vue3-autocounter ref='counter' :startAmount="0" :endAmount="activeProxy"  :duration="4" separator=" "></vue3-autocounter></span>
                 </div>
                 <div class="banner__block">
                     <i> 
-                    <img src="/storage/images/header/i4.svg" alt="">
-                    <img class="hover" src="/storage/images/header/i4-hover.svg" alt="">
+                    <img src="/storage/images/header/i3.svg" alt="stats" width="42" height="40">
+                    <img class="hover" src="/storage/images/header/i3-hover.svg" loading="lazy" alt="stats" width="42" height="40">
+                    </i>
+                    <p v-if="langthis == 'ru'"> повторных заказов</p> <p v-else>{{ $t('repeat orders') }}</p> <span><vue3-autocounter ref='counter' :startAmount="0" :endAmount="procentZakaz"  :duration="4" separator=" "></vue3-autocounter>%</span>
+                </div>
+                <div class="banner__block">
+                    <i> 
+                    <img src="/storage/images/header/i4.svg" alt="stats" width="42" height="42">
+                    <img class="hover" src="/storage/images/header/i4-hover.svg" loading="lazy" alt="stats" width="42" height="42">
                     </i>
                     <p v-if="langthis == 'ru'"> заказов обработано</p> <p v-else>{{ $t('orders processed') }}</p> <span><vue3-autocounter ref='counter' :startAmount="0" :endAmount="orderCount"  :duration="4" separator=" "></vue3-autocounter></span>
                 </div>
@@ -34,8 +35,8 @@
 
                 <div class="garant__block">
                     <div class="garant__block--img"> 
-                        <img src="/storage/images/header/i5.svg" alt="">
-                        <img class="hover" src="/storage/images/header/i5-hover.svg" alt="">
+                        <img src="/storage/images/header/i5.svg" alt="stats">
+                        <img class="hover" src="/storage/images/header/i5-hover.svg" loading="lazy" alt="stats">
                     </div>
                     <div class="garant__wrapper"> 
                         <p v-if="langthis == 'ru'">гарантия на возврат денег</p> 
@@ -53,22 +54,22 @@ import Vue3Autocounter from 'vue3-autocounter';
 export default {
     name: 'StatsData',
     props:[
-        'lang'
+        'allstats', 'lang'
     ],
     data() {
         return {
-            userCount:0,
-            totalProxy:0,
-            orderCount:0,
-            activeProxy:0,
-            procentZakaz:0,
+            userCount:this.allstats.user_count,
+            totalProxy:this.allstats.total_proxy_count,
+            orderCount:this.allstats.order_count,
+            activeProxy:this.allstats.active_proxy_count,
+            procentZakaz:91,
             langthis: this.lang
 
         }
     },
     mounted() {
-         
-        fetch('https://panel.proxyline.net/stats/').then(response => response.json())
+         console.log(this.allstats.user_count);
+     /* fetch('https://panel.proxyline.net/stats/').then(response => response.json())
         .then((commits) => {
             console.log(commits);
             this.activeProxy = commits.active_proxy_count,
@@ -77,7 +78,7 @@ export default {
             this.userCount = commits.user_count
             this.procentZakaz = 91
             }
-        );
+        );*/
     },
 
     components: {

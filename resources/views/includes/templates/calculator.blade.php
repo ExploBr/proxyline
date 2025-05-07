@@ -24,7 +24,11 @@
 <div id="calculator" class="calculator__main">
     <div  class="top__title">
         <img src="{{ asset('storage/images/calculator-top.svg') }}" alt="">
+        @if($page->template == 'catalog')
+            <h1>{!! $page->title !!}</h1>
+        @else
         <h3>{{ __('Proxy cost') }}</h3>
+        @endif
     </div>
     <calculator-component 
     :data_calculator = '@json($data_calculator)'

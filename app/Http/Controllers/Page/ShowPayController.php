@@ -17,7 +17,7 @@ class ShowPayController extends Controller
     public function __invoke(PayRequest $request){
         $data = $request->validated();
         
-        $page = Page::where('page_langs.page_id', '=', 17)
+        $page = Page::where('pages.id', '=', 17)
         ->where('page_langs.lang','=', app()->getLocale())
         ->leftJoin('page_langs','pages.id', '=','page_langs.page_id')->firstOr(function () {
             abort(404);

@@ -27,7 +27,7 @@
             <option value="main">Главная</option>
             <option value="contact">Контакты</option>
             <option value="partner">Партнёрская программа</option>
-            <option value="ipv">ipv</option>
+            <option value="ipv">ipv(страны, соц. сети и т.д)</option>
             <option value="optovikam">Оптовикам</option>
             <option value="ceny">Цены</option>
             <option value="pay">Оплата</option>
@@ -42,6 +42,9 @@
             <option value="faq">Faq</option>
             <option value="apipage">Api</option>
             <option value="instruction">Общая инструкций</option>
+            <option value="catalog">Каталог</option>
+            <option value="podcatalog">Подкаталог</option>
+            <option value="sitemap">Карта сайта</option>
 
         </select>
     </div>
@@ -114,6 +117,16 @@
                     <textarea v-model="metas.ipv_content_bottom" id="ipv_content_bottom" ref="ipv_content_bottom">
                     {{ metas.ipv_content_bottom }}
                     </textarea>
+                </div>
+
+                <div class="from-group">
+                    <label>Код для страны</label>
+                    <input v-model="metas.code_country">
+                </div>
+
+                <div class="from-group">
+                    <label>Название  для Главной</label>
+                    <input v-model="metas.name_country">
                 </div>
 
             </div>
@@ -252,6 +265,7 @@
                 </div>
 
             </div>
+            
 
         </div>
 

@@ -6,6 +6,7 @@ use App\Models\MainContentOptions;
 use App\Models\MainOption;
 use App\Models\Page;
 use App\Models\SeoInfo;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -84,10 +85,75 @@ class IndexController extends Controller
 
         $course_usd = DB::table('api_info')->where('name', '=',  "course_usd")->value('content');
 
+        $allstats = DB::table('api_info')->where('name', '=',  "stats")->value('content');
+        $allstats = json_decode( $allstats);
          
+
+
+
+        $catalog = MainOption::where('name', '=', 'catalog')
+        ->value('content');
+        $catalog  = json_decode( $catalog);
+
+        $allPage = Page::where('page_langs.lang', '=', app()->getLocale())
+        ->where('pages.publish','=', '1')
+        ->leftJoin('page_langs','pages.id', '=','page_langs.page_id')
+        ->get();
+
+        $allPageMetas = Page::where('page_langs.lang', '=', app()->getLocale())
+        ->where('pages.publish','=', '1')
+        ->leftJoin('page_langs','pages.id', '=','page_langs.page_id')
+        ->leftJoin('page_metas','pages.id', '=','page_metas.page_id')
+        ->where('page_metas.lang', '=', app()->getLocale())
+     
+        ->where(function (Builder $query) {
+            $query->where('page_metas.name', '=', 'ipv_content_top')
+            ->orWhere('page_metas.name','=','code_country')
+            ->orWhere('page_metas.name','=','name_country');
+        })
+        
+        ->select('pages.slug','page_langs.title','page_metas.name','page_metas.content')
+         ->get();
+       
+
+
+         
+        $catalogpages = [];
+         
+        foreach($catalog as $key3 => $cat){
+            foreach ($allPage as $key => $value) {
+                if($cat->page == $value->slug){  
+                    
+                    array_push($catalogpages ,['name'=>$value->title, 'slug'=>$value->slug,  'links'=>[]]);
+                    foreach ($cat->links as $element) {
+                        $meta = [];
+                        $title ='';
+                        $slug = '';
+                        foreach ($allPageMetas as $key2 => $value2) {
+                            if($value2->slug == $element){
+                                
+                                 $meta[$value2->name] = $value2->content;
+                                 $title = $value2->title;
+                                 $slug = $value2->slug;
+                            }
+                        }
+                        if($title != ''){
+                        $catalogpages[$key3]['links'][] = ['title'=>$title , 'slug'=>$slug, 'meta' => $meta];
+                        }
+                    }
+                    break;
+                } 
+            }
+        }
+        
+        $countries = MainContentOptions::where('name', '=',  "countries")->value('content');
+        $countries = json_decode($countries);
         
 
         return view("index", 
-        compact("page", 'advantages', 'whereuse', 'seoblock', 'affilateblock', 'data_calculator', 'modal_info', 'reviews_ru', 'reviews_en', 'menu_top', 'socials', 'course_usd', 'menu_info', 'menu_main_bottom','menu_main_country','all_payments','menu_main_podmenu', 'page_seo'));
+        compact("page", 'advantages', 'whereuse', 'seoblock',
+         'affilateblock', 'data_calculator', 'modal_info', 'reviews_ru', 'reviews_en', 'menu_top',
+          'socials', 'course_usd', 'menu_info', 'menu_main_bottom','menu_main_country','all_payments',
+          'menu_main_podmenu', 'page_seo', 'allstats','catalogpages', 'countries'));
     }
 }

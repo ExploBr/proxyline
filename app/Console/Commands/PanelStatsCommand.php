@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Components\ImportDataClient;
+use App\Components\StatsData;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -18,19 +18,19 @@ class PanelStatsCommand extends Command
      
     public function handle()
     {
-       $payment = new ImportDataClient();
-       $response = $payment->client->request('GET','/stats');
+       $payment = new StatsData();
+       $response = $payment->client->request('GET','api/web/v1/1/landing/stats');
        $data =$response->getBody()->getContents();
          
        dump($data);
-       /* DB::table('api_info')->upsert(
+         DB::table('api_info')->upsert(
             [
                 ['name' => 'stats', 'content' => $data],
                 
             ],
             ['name'],
             ['content']
-        ); */
+        );  
 
             
         

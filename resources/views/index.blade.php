@@ -12,7 +12,10 @@
                 </div>
                 <div id="stats_data">
 
-                        <stats-data lang = @json( app()->getLocale() )></stats-data>
+                        <stats-data 
+                        :lang = @json( app()->getLocale() )
+                        :allstats = @json( $allstats )
+                            ></stats-data>
                 </div>
             </div>
             
@@ -59,6 +62,7 @@
 @include('includes.templates.calculator')
 
 @include('includes.templates.whereuse')
+@include('includes.templates.countries')
 @include('includes.templates.seoblock')
 @include('includes.templates.reviews')
 @include('includes.templates.affilate')

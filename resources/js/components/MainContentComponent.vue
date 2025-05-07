@@ -191,11 +191,15 @@ export default {
  
         // We receive data, some comes in different forms from, here json.parse
         this.advantages.forEach((element,index) => {   
+                if(this.advantages[index].content){
                  this.advantages[index].content = JSON.parse(this.advantages[index].content)
+                }
         })
+        
         this.whereuse.forEach((element,index) => {   
                  this.whereuse[index].content = JSON.parse(this.whereuse[index].content)
         })
+         
         this.seodata.forEach((element,index) => {   
                  this.seodata[index].content = (this.seodata[index].content)
         })
@@ -351,7 +355,7 @@ export default {
                         if(element.lang == this.lang && element.content){
                             element.content.forEach(element2 => {
                                 let file = { name: element2.image.name, size: element2.image.size };
-                                this.adv_images.files.push({'name': element2.image.name,'path':element2.image.path, 'url' : element2.image.url});
+                                this.adv_images.files.push({'name': element2.image.name,'path':element2.image.path, 'url' : element2.image.path});
                                 this.adv_images.displayExistingFile(file, element2.image.url)
                             });
                         }
@@ -513,6 +517,7 @@ export default {
                 // Add data to sorting, for the total number of all images  
                 // and saving existing images 
                 this.adv_images.files.forEach((element,index) => {
+                     
                     if(element instanceof File != true){
                         adv_sort = index
                         adv_name = element.name
@@ -525,9 +530,11 @@ export default {
                     }                     
                       data.append(`adv_sort[${index}][name]`, adv_name) 
                       data.append(`adv_sort[${index}][sort]`, adv_sort) 
-                      
+                  
                 });
+               
             }
+            
 
             files = this.adv_images.getAcceptedFiles();
             files.forEach((file,index) => {

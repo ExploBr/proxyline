@@ -13,7 +13,10 @@
                     <div class="partent__title"> {{ __('Our partners have already earned') }}</div>
 
                     <div class="partent__count" id="affilate__counter">
-                        <affilate-component></affilate-component>
+                        <affilate-component
+                        :allstats = @json($allstats)
+                        :course_usd = @json($course_usd)
+                        ></affilate-component>
                     </div>
         </div>
 

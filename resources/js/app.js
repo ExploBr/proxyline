@@ -17,6 +17,7 @@ import AffilateComponent from './components/layouts/AffilateComponent.vue';
 import HeaderSlider from './components/layouts/HeaderSlider.vue';
 import StatsData from './components/layouts/StatsData.vue';
 import PartnerComponent from './components/layouts/PartnerComponent.vue';
+import CountriesComponent from './components/layouts/CountriesComponent.vue';
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -86,6 +87,21 @@ const statsData = createApp({
   }
 }).mount('#stats_data');  
 }
+
+if(document.querySelector('#countries__list')){
+  const countries = createApp({
+    components: {
+      CountriesComponent
+      }
+  }).use(i18nVue, {
+  
+    resolve: async lang => {
+        const langs = import.meta.glob('../../lang/*.json');
+        return await langs[`../../lang/${lang}.json`]();
+    }
+  }).mount('#countries__list');
+  }
+
  
 
 
@@ -129,44 +145,67 @@ document.querySelector('.all_payments--shadow').addEventListener('click', functi
 
  
 let tab = document.querySelectorAll('.head-tab'),
-maintab = document.querySelector('.tabs'),
-tabContent = document.querySelectorAll('.tabcontent');
+    maintab = document.querySelector('.tabs'),
+    tab2 = document.querySelectorAll('.head-tab2'),
+    maintab2 = document.querySelector('.tabs2'),
+    tabContent = document.querySelectorAll('.tabcontent'),
+    tabContent2 = document.querySelectorAll('.tabcontent2');
+
 if(maintab){
-  function hideTabContent(a) {
-    for (let i = a; i < tabContent.length; i++) {
-        tabContent[i].classList.remove('show');
-        tabContent[i].classList.add('hide');
+    maintab.addEventListener('click', function(event) {
+      let target = event.target;
+      if (target && target.classList.contains('head-tab')) {
+          for(let i = 0; i < tab.length; i++) {
+              if (target == tab[i]) {
+                  hideTabContent(0,tabContent,tab);
+                  showTabContent(i,tabContent,tab);
+                  break;
+              }
+          }
+      }
 
-        tab[i].classList.remove('activetab');
-  
-    }
-  }
-
-  hideTabContent(1);
-
-  function showTabContent(b) {
-    if (tabContent[b].classList.contains('hide')) {
-        tabContent[b].classList.remove('hide');
-        tabContent[b].classList.add('show');
+    });
  
-        tab[b].classList.add('activetab');
-    }
-  }
-
-  maintab.addEventListener('click', function(event) {
-    let target = event.target;
-    if (target && target.classList.contains('head-tab')) {
-        for(let i = 0; i < tab.length; i++) {
-            if (target == tab[i]) {
-                hideTabContent(0);
-                showTabContent(i);
-                break;
-            }
-        }
-    }
-
-  });
 }
+if(maintab2){
+    maintab2.addEventListener('click', function(event) {
+      let target = event.target;
+      if (target && target.classList.contains('head-tab2')) {
+          for(let i = 0; i < tab2.length; i++) {
+              if (target == tab2[i]) {
+                  hideTabContent(0,tabContent2,tab2);
+                  showTabContent(i,tabContent2,tab2);
+                  break;
+              }
+          }
+      }
+
+    });
+ 
+}
+function hideTabContent(a,el,tab) {
+  
+  for (let i = a; i < el.length; i++) {
+    el[i].classList.remove('show');
+    el[i].classList.add('hide');
+
+      tab[i].classList.remove('activetab');
+
+  }
+}
+hideTabContent(1,tabContent,tab);
+hideTabContent(1,tabContent2,tab2);
+function showTabContent(b,el,tab) {
+  if (el[b].classList.contains('hide')) {
+      el[b].classList.remove('hide');
+      el[b].classList.add('show');
+
+      tab[b].classList.add('activetab');
+  }
+}
+ 
+
+
 
 if(document.querySelector('.faq__item')){
   let faqitem = document.querySelectorAll('.faq__item');
@@ -195,4 +234,25 @@ document.querySelector('#back-top').onclick = (e) => {
   });
 }
 
+
+if(document.querySelector('.copyit')){
+
+   
+  document.querySelectorAll('.copyit').forEach(el =>el.addEventListener('click',() => {
+      var thisbtn = el.closest('.one-banner-info').children[0].children[0].getAttribute('data-text');
+
+      var $temp = document.createElement("input");
+      $temp.value = thisbtn;
+      document.body.appendChild($temp)
+       
+
+      $temp.select();
+      document.execCommand("copy");
+      $temp.remove();
+
+      alert("Ссылка на баннер теперь в буфере обмена");
+  })
+)
+ 
+}
  
